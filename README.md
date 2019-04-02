@@ -1,7 +1,7 @@
 # Event delegation
 
 ### How it works
-The scripts create a new method in Element prototype with following signature.
+The scripts creates a new method on `Element` prototype with following signature.
 ```text
 Element.prototype.delegator(eventType, selector, _callback)
 ```
