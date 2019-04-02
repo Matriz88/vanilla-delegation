@@ -12,7 +12,10 @@ Element.prototype.delegator(eventType, selector, _callback)
 
 ### How to use
 ```javascript
+// get an element
 let myBodyElement = document.querySelector("body");
+
+// bind event with delegation
 myBodyElement.delegator("click", "a", function(e) {
     e.preventDefault();
     console.log("link clicked!");
