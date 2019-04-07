@@ -23,7 +23,7 @@ myBodyElement.delegator("click", "a", function(e) {
 ```
 
 ### Support
-- IE 9+
+- IE 11+
 - Edge 12+
 - Firefox 34+
 - Chrome 4+

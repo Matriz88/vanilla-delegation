@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, serif;
+    font-size: 15px;
+}
+
+pre {
+    padding: 20px;
+    width: auto;
+    display: inline-block;
+    white-space: pre-wrap;
+    background: #292929;
+    color: #d6d6d6;
+}
+
+pre .delegator {
+    color: #08b9d3;
+}
+
+pre .function {
+    color: #ef6517;
+}
+
+pre .string {
+    color: #28a728;
+}
+
