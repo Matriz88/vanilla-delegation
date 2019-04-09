@@ -36,5 +36,8 @@ module.exports = {
             filename: "[name].css"
         }),
         new IgnoreEmitPlugin(/^style.*\.js$/)
-    ]
+    ],
+    optimization: {
+        minimize: false
+    }
 };

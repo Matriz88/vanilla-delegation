@@ -1,34 +1,40 @@
 (function () {
-    // polyfill
-    if (!Element.prototype.matches) {
-        Element.prototype.matches = Element.prototype.msMatchesSelector ||
-            Element.prototype.webkitMatchesSelector ||
-            Element.prototype.matchesSelector ||
-            Element.prototype.mozMatchesSelector ||
-            Element.prototype.oMatchesSelector;
-    }
-
     Element.prototype.delegator = function (eventType, selector, listener, useCapture = false) {
+        /**
+         * create listener handler
+         * @param {string} selector
+         * @param {EventListener} listener
+         * @param {Event} event
+         */
         let listenerHandler = function (selector, listener, event) {
-            // recursive matcher
-            const recurseMatch = function (element, selector) {
+
+            /**
+             * recursive matcher
+             * @param {Element} element
+             * @param {string} selector
+             */
+            const recurseMatch = (element, selector) => {
+                const matchesSelector = element.matches || element.webkitMatchesSelector || element.mozMatchesSelector || element.msMatchesSelector;
+                if (element === this) return element;
                 if (element.nodeType === Node.DOCUMENT_NODE || element.nodeType === Node.DOCUMENT_TYPE_NODE) return false;
-                return element.matches(selector) ? element : (element.parentElement != null) ? recurseMatch(element.parentElement, selector) : false;
+                return matchesSelector.call(element, selector) ? element : (element.parentElement != null) ? recurseMatch(element.parentElement, selector) : false;
             };
 
-            let elementDelegate = recurseMatch(event.target, selector);
-            if (elementDelegate) {
-                listener.call(elementDelegate, event);
+            let elDelegate = recurseMatch(event.target, selector);
+            
+            if (elDelegate) {
+                listener.call(elDelegate, event);
             }
         }.bind(this, selector, listener);
 
-        document.addEventListener(eventType, listenerHandler, useCapture);
+
+        this.addEventListener(eventType, listenerHandler, useCapture);
 
         return {
-            off: function (useCapture) {
-                document.removeEventListener(eventType, listenerHandler, useCapture);
+            off: () => {
+                this.removeEventListener(eventType, listenerHandler, useCapture);
                 listenerHandler = null;
-            }.bind(this, useCapture)
+            }
         }
     }
 })();
