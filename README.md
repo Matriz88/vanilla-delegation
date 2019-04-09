@@ -1,9 +1,10 @@
 # Event delegation
+Light vanilla event delegation.
 
 ### How it works
 The scripts creates a new method on `Element` prototype with following signature.
 ```text
-Element.prototype.delegator(eventType, selector, listener, useCapture)
+Element.prototype.delegator(eventType, selector, listener, useCapture = false)
 ```
 
 - **eventType**: [string] event type, for example "click", "focus", etc...
