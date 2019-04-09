@@ -18,10 +18,13 @@ require('delegator.js');
 let body = document.querySelector('body');
 
 // bind event with delegation
-body.delegator('click', 'a', function (e) {
+let myDelegatedHandler = body.delegator('click', 'a', function (e) {
     e.preventDefault();
     alert('link clicked!');
 });
+
+// remove the listener
+myDelegatedHandler.off();
 ```
 
 ### Support

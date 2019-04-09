@@ -1,11 +1,13 @@
 require('../../dist/delegator.js');
 
 (function () {
-    let section = document.querySelector('section');
+    let body = document.querySelector('body');
 
     // bind event with delegation
-    section.delegator('click', 'a', function (e) {
+    window.myevent = body.delegator('click', 'a', function (e) {
         e.preventDefault();
-        alert('link clicked!');
+        console.log('link clicked!');
+        console.log(this);
     });
+    console.log('type: myevent.off() to remove the listener')
 })();
