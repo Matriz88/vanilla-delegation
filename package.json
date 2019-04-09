@@ -1,12 +1,13 @@
 {
   "name": "event-delegation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/delegator.js",
   "scripts": {
     "build": "webpack --mode production",
     "build:example": "webpack --config ./example/webpack.example.config.js --mode production",
-    "build:all": "npm run build && npm run build:example"
+    "build:all": "npm run build && npm run build:example",
+    "version": "npm --no-git-tag-version version"
   },
   "keywords": [],
   "author": "",
