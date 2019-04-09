@@ -3,12 +3,13 @@
 ### How it works
 The scripts creates a new method on `Element` prototype with following signature.
 ```text
-Element.prototype.delegator(eventType, selector, _callback)
+Element.prototype.delegator(eventType, selector, listener, useCapture)
 ```
 
 - **eventType**: [string] event type, for example "click", "focus", etc...
 - **selector**: [string] css child selector, must be a child of Element.
-- **_callback**: [function] callback function, original event obj is passed as argument.
+- **listener**: [function] callback function, original event obj is passed as argument.
+- **useCapture**: [bool|optional] Default: `false`; Indicates whether events of this type will be dispatched to the registered listener before being dispatched to any EventTarget beneath it in the DOM tree. See [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener).
 
 ### How to use
 ```javascript
