@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'delegator.js'
+        filename: 'event-delegation.js'
     },
     module: {
         rules: [

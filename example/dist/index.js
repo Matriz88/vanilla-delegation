@@ -91,14 +91,28 @@
 __webpack_require__(1);
 
 (function () {
-  var body = document.querySelector('body'); // bind event with delegation
-
-  window.myevent = body.delegator('click', 'a', function (e) {
+  // bind event with delegation
+  window.myevent = document.querySelector('body').addDelegateListener('click', 'a', function (e) {
     e.preventDefault();
-    console.log('link clicked!');
-    console.log(this);
+    console.log('listen body; delegate a', this);
   });
-  console.log('type: myevent.off() to remove the listener');
+  window.myevent2 = document.querySelector('section').addDelegateListener('click', 'p', function (e) {
+    e.preventDefault();
+    console.log('listen section; delegate p', this);
+  });
+  window.myevent3 = document.querySelector('pre').addDelegateListener('click', 'code', function (e) {
+    e.preventDefault();
+    console.log('listen pre; delegate code', this);
+  });
+  window.myevent4 = document.querySelector('section').addDelegateListener('click', 'section', function (e) {
+    e.preventDefault();
+    console.log('listen section; delegate section', this);
+  });
+  window.myevent5 = document.querySelector('section').addDelegateListener('click', 'body', function (e) {
+    e.preventDefault();
+    console.log('listen section; delegate body', this);
+  });
+  console.log('use myevent.off() to remove the listener');
 })();
 
 /***/ }),
@@ -155,14 +169,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return Object.prototype.hasOwnProperty.call(e, t);
   }, o.p = "", o(o.s = 0);
 }([function (e, t) {
-  Element.prototype.delegator = function (eventType, selector, listener) {
+  Element.prototype.addDelegateListener = function (eventType, selector, listener) {
     var e = this,
         useCapture = 3 < arguments.length && void 0 !== arguments[3] && arguments[3],
         t = function (selector, listener, e) {
       var r = this,
           t = function e(t, selector) {
         var n = t.matches || t.webkitMatchesSelector || t.mozMatchesSelector || t.msMatchesSelector;
-        return t === r ? t : t.nodeType !== Node.DOCUMENT_NODE && t.nodeType !== Node.DOCUMENT_TYPE_NODE && (n.call(t, selector) ? t : null != t.parentElement && e(t.parentElement, selector));
+        return t.nodeType !== Node.DOCUMENT_NODE && (n.call(t, selector) ? t : null != t.parentElement && t !== r && e(t.parentElement, selector));
       }(e.target, selector);
 
       t && listener.call(t, e);

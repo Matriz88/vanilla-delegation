@@ -14,13 +14,13 @@ Element.prototype.delegator(eventType, selector, listener, useCapture = false)
 
 ### How to use
 ```javascript
-require('delegator.js');
+require('event-delegation.js');
 
 // get an element
 let body = document.querySelector('body');
 
 // bind event with delegation
-let myDelegatedHandler = body.delegator('click', 'a', function (e) {
+let myDelegatedHandler = body.addDelegateListener('click', 'a', function (e) {
     e.preventDefault();
     alert('link clicked!');
 });
