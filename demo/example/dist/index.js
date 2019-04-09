@@ -168,25 +168,40 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   }, o.o = function (e, t) {
     return Object.prototype.hasOwnProperty.call(e, t);
   }, o.p = "", o(o.s = 0);
-}([function (e, t) {
+}([function (e, t, n) {
+  var r = n(1);
+
   Element.prototype.addDelegateListener = function (eventType, selector, listener) {
     var e = this,
         useCapture = 3 < arguments.length && void 0 !== arguments[3] && arguments[3],
-        t = function (selector, listener, e) {
-      var r = this,
-          t = function e(t, selector) {
-        var n = t.matches || t.webkitMatchesSelector || t.mozMatchesSelector || t.msMatchesSelector;
-        return t.nodeType !== Node.DOCUMENT_NODE && (n.call(t, selector) ? t : null != t.parentElement && t !== r && e(t.parentElement, selector));
-      }(e.target, selector);
-
-      t && listener.call(t, e);
-    }.bind(this, selector, listener);
-
+        t = r(this, selector, listener);
     return this.addEventListener(eventType, t, useCapture), {
       off: function off() {
         e.removeEventListener(eventType, t, useCapture), t = null;
       }
     };
+  };
+}, function (e, t, n) {
+  var o = n(2);
+
+  e.exports = function (e, selector, listener) {
+    return function (selector, listener, e) {
+      var t = performance.now(),
+          n = o(e.target, selector);
+
+      if (n) {
+        var r = performance.now();
+        console.log(r - t), listener.call(n, e);
+      }
+    }.bind(e, selector, listener);
+  };
+}, function (e, t) {
+  Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector);
+
+  e.exports = function (e, selector) {
+    for (var t = e; t && 9 !== t.nodeType; t = t.parentElement) {
+      if (t.matches(selector)) return t;
+    }
   };
 }]);
 

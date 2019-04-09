@@ -1,4 +1,4 @@
-require('../../dist/event-delegation.js');
+require('../../../dist/event-delegation.js');
 
 (function () {
     // bind event with delegation

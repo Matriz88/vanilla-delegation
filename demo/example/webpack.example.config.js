@@ -3,8 +3,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin');
 module.exports = {
     entry: {
-        index: './example/src/index.js',
-        style: './example/src/style.scss'
+        index: './demo/example/src/index.js',
+        style: './demo/example/src/style.scss'
     },
     output: {
         path: path.resolve(__dirname, 'dist')

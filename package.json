@@ -5,7 +5,8 @@
   "main": "dist/delegator.js",
   "scripts": {
     "build": "webpack --mode production",
-    "build:example": "webpack --config ./example/webpack.example.config.js --mode production",
+    "build:example": "webpack --config demo/example/webpack.example.config.js --mode production",
+    "build:perf": "webpack --config demo/performance_test/webpack.perf.config.js --mode production",
     "build:all": "npm run build && npm run build:example",
     "version": "npm --no-git-tag-version version"
   },
@@ -17,6 +18,7 @@
     "@babel/preset-env": "^7.4.3",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
+    "delegate": "^3.2.0",
     "ignore-emit-webpack-plugin": "^1.0.2",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
