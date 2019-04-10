@@ -1,20 +1,21 @@
-const DOCUMENT_NODE = 9;
+const ELEMENT_NODE = Node.ELEMENT_NODE;
 
+/**
+ * apply polyfill
+ */
 if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.msMatchesSelector ||
-        Element.prototype.webkitMatchesSelector;
+    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 /**
  * matcher
  * @param attachedElement
  * @param element
  * @param selector
- * @returns {boolean|{matches}}
+ * @returns {boolean|Element}
  */
 const getMatchedElement = function (attachedElement, element, selector) {
-    for (let el = element; el && el.nodeType !== DOCUMENT_NODE && el !== attachedElement; el = el.parentElement) {
-        if (el.matches(selector))
-            return el;
+    for (let el = element; el && el.nodeType === ELEMENT_NODE && el !== attachedElement; el = el.parentElement) {
+        if (el.matches(selector)) return el;
     }
 
     return attachedElement.matches(selector) ? attachedElement : false;

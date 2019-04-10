@@ -91,24 +91,22 @@
 __webpack_require__(1);
 
 (function () {
-  // bind event with delegation
-  window.myevent = document.querySelector('body').addDelegateListener('click', 'a', function (e) {
+  /**
+   * bind event on single element
+   */
+  window.singleEvent = document.querySelector('body').addDelegateListener('click', 'a', function (e) {
     e.preventDefault();
-      console.log('listen body; delegate a', this, e);
+    console.log('listen body; delegate a', this, e);
   });
-    window.myevent2 = document.querySelectorAll('div').addDelegateListener('click', 'p', function (e) {
-        console.log('listen div; delegate p', this, e);
-    }); // window.myevent3 = document.querySelector('pre').addDelegateListener('click', 'code', function (e) {
-    //     console.log('listen pre; delegate code', this, e);
-    // });
-    // window.myevent4 = document.querySelector('section').addDelegateListener('click', 'section', function (e) {
-    //     console.log('listen section; delegate section', this, e);
-    // });
-    // window.myevent5 = document.querySelector('section').addDelegateListener('click', 'body', function (e) {
-    //     console.log('listen section; delegate body', this, e);
-    // });
+  /**
+   * bind event on multiple elements
+   */
 
-  console.log('use myevent.off() to remove the listener');
+  window.multipleEvents = document.querySelectorAll('div').addDelegateListener('click', 'p', function (e) {
+    console.log('listen div; delegate p', this, e);
+  });
+  console.log('use singleEvent.off() to remove the listener');
+  console.log('use multipleEvents.forEach(element => element.off()) to remove all multiple listeners');
 })();
 
 /***/ }),
@@ -165,46 +163,47 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     return Object.prototype.hasOwnProperty.call(e, t);
   }, o.p = "", o(o.s = 0);
 }([function (e, t, n) {
-    var r,
-        o,
-        i = n(1);
-    r = function r(eventType, selector, e) {
-        var t = this,
-            n = i(this, selector, e);
-        return this.addEventListener(eventType, n, !1), {
+  var o,
+      r,
+      i = n(1);
+  o = function o(eventType, selector, e) {
+    var t = this,
+        n = i(this, selector, e);
+    return this.addEventListener(eventType, n, !1), {
       off: function off() {
-          t.removeEventListener(eventType, n, !1), n = null;
+        t.removeEventListener(eventType, n, !1), n = null;
       }
     };
-    }, o = function o(eventType, selector, e) {
-        if (this instanceof NodeList) {
-            for (var t = [], n = 0; n < this.length; ++n) {
-                t.push(r.call(this[n], eventType, selector, e));
-            }
+  }, r = function r(eventType, selector, e) {
+    if (this instanceof NodeList) {
+      for (var t = [], n = this.length, r = 0; r < n; ++r) {
+        t.push(o.call(this[r], eventType, selector, e));
+      }
 
-            return t;
-        }
-
-        if (this instanceof Element) return r.call(this, eventType, selector, e);
-    }, Element.prototype.addDelegateListener = o, NodeList.prototype.addDelegateListener = o;
-}, function (e, t, n) {
-    var r = n(2);
-
-    e.exports = function (e, selector, t) {
-        return function (selector, e, t) {
-            var n = r(this, t.target, selector);
-            n && (t.delegateTarget = this, e.call(n, t));
-        }.bind(e, selector, t);
-  };
-}, function (e, t) {
-  Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector);
-
-    e.exports = function (e, t, selector) {
-        for (var n = t; n && 9 !== n.nodeType && n !== e; n = n.parentElement) {
-            if (n.matches(selector)) return n;
+      return t;
     }
 
-        return !!e.matches(selector) && e;
+    return this instanceof Element ? o.call(this, eventType, selector, e) : (console.warn("Cannot bind event on non-Element objects"), !1);
+  }, Element.prototype.addDelegateListener = r, NodeList.prototype.addDelegateListener = r;
+}, function (e, t, n) {
+  var r = n(2);
+
+  e.exports = function (e, selector, t) {
+    return function (selector, e, t) {
+      var n = r(this, t.target, selector);
+      n && (t.delegateTarget = this, e.call(n, t));
+    }.bind(e, selector, t);
+  };
+}, function (e, t) {
+  var r = Node.ELEMENT_NODE;
+  Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector);
+
+  e.exports = function (e, t, selector) {
+    for (var n = t; n && n.nodeType === r && n !== e; n = n.parentElement) {
+      if (n.matches(selector)) return n;
+    }
+
+    return !!e.matches(selector) && e;
   };
 }]);
 

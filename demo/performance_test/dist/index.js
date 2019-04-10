@@ -146,13 +146,15 @@
         var delegate = __webpack_require__(2);
 
         (function () {
+            var NESTED_CHILDREN = 1000;
+            var DOMBlocks = 5;
+
             var prepareDom = function prepareDom() {
                 var counter = 0;
-                var max = 1000;
 
                 var recursAppend = function recursAppend(el) {
-                    if (counter === max) return false;
-                    var newEl = document.createElement(counter === max - 1 ? 'span' : "p");
+                    if (counter === NESTED_CHILDREN) return false;
+                    var newEl = document.createElement(counter === NESTED_CHILDREN - 1 ? 'span' : "p");
                     el.appendChild(newEl);
                     counter++;
                     recursAppend(newEl);
@@ -161,20 +163,41 @@
                 var section = document.querySelector('section');
                 recursAppend(section);
             };
+            /**
+             * prepare dom blocks N times
+             * recursively inject nested <p> inside section, last child will be <span> (colored green to make clickable)
+             */
 
-            prepareDom();
-            prepareDom();
-            prepareDom();
-            prepareDom();
-            prepareDom(); // delegate(document.querySelector('section'), 'body', 'click', function (e) {
+
+            while (--DOMBlocks) {
+                prepareDom();
+            }
+            /**
+             * de-comment the one you want to test
+             * 1) delegate (https://www.npmjs.com/package/delegate)
+             * 2) event-delegation
+             */
+
+            /**
+             * 1)
+             */
+            // delegate(document.querySelector('body'), 'section', 'click', function (e) {
             //     //console.log("clicked!");
-            //     return true;
             // }, false);
 
-            document.querySelector('body').addDelegateListener('click', 'section', function (e) {
-                //console.log("clicked!");
-                return true;
-            });
+            /**
+             * 2)
+             */
+            // document.querySelector('body').addDelegateListener('click', 'section', function (e) {
+            //     //console.log("clicked!");
+            // });
+
+            /**
+             * results:
+             * at first hit, event-delegation is faster (~10% faster).
+             * When objects are cached in memory both are equally fast.
+             */
+
         })();
 
         /***/
@@ -243,10 +266,10 @@
                 return Object.prototype.hasOwnProperty.call(e, t);
             }, o.p = "", o(o.s = 0);
         }([function (e, t, n) {
-            var r,
-                o,
+            var o,
+                r,
                 i = n(1);
-            r = function r(eventType, selector, e) {
+            o = function o(eventType, selector, e) {
                 var t = this,
                     n = i(this, selector, e);
                 return this.addEventListener(eventType, n, !1), {
@@ -254,17 +277,17 @@
                         t.removeEventListener(eventType, n, !1), n = null;
                     }
                 };
-            }, o = function o(eventType, selector, e) {
+            }, r = function r(eventType, selector, e) {
                 if (this instanceof NodeList) {
-                    for (var t = [], n = 0; n < this.length; ++n) {
-                        t.push(r.call(this[n], eventType, selector, e));
+                    for (var t = [], n = this.length, r = 0; r < n; ++r) {
+                        t.push(o.call(this[r], eventType, selector, e));
                     }
 
                     return t;
                 }
 
-                if (this instanceof Element) return r.call(this, eventType, selector, e);
-            }, Element.prototype.addDelegateListener = o, NodeList.prototype.addDelegateListener = o;
+                return this instanceof Element ? o.call(this, eventType, selector, e) : (console.warn("Cannot bind event on non-Element objects"), !1);
+            }, Element.prototype.addDelegateListener = r, NodeList.prototype.addDelegateListener = r;
         }, function (e, t, n) {
             var r = n(2);
 
@@ -275,10 +298,11 @@
                 }.bind(e, selector, t);
             };
         }, function (e, t) {
+            var r = Node.ELEMENT_NODE;
             Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector);
 
             e.exports = function (e, t, selector) {
-                for (var n = t; n && 9 !== n.nodeType && n !== e; n = n.parentElement) {
+                for (var n = t; n && n.nodeType === r && n !== e; n = n.parentElement) {
                     if (n.matches(selector)) return n;
                 }
 
@@ -360,12 +384,9 @@
          */
         function listener(element, selector, type, callback) {
             return function (e) {
-                const t0 = performance.now();
                 e.delegateTarget = closest(e.target, selector);
 
                 if (e.delegateTarget) {
-                    const t1 = performance.now();
-                    console.log(t1 - t0);
                     callback.call(element, e);
                 }
             }
