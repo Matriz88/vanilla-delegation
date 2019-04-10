@@ -1,48 +1,50 @@
+const createHandler = require('./createInternalHandler');
+
 (function () {
-    Element.prototype.addDelegateListener = function (eventType, selector, listener, useCapture = false) {
-        /**
-         * create listener handler
-         * @param selector
-         * @param listener
-         * @param event
-         */
-        let listenerHandler = function (selector, listener, event) {
+    /**
+     * addDelegateListenerInternal
+     * @param eventType
+     * @param selector
+     * @param handler
+     * @returns {{off: off}}
+     */
+    const addDelegateListenerInternal = function (eventType, selector, handler) {
 
-            /**
-             * recursive matcher
-             * @param element
-             * @param selector
-             * @returns {boolean|{matches}}
-             */
-            const getMatchedElement = (element, selector) => {
-                const matchesSelector = element.matches
-                    || element.webkitMatchesSelector
-                    || element.mozMatchesSelector
-                    || element.msMatchesSelector;
+        let internalHandler = createHandler(this, selector, handler);
 
-                if (element.nodeType === Node.DOCUMENT_NODE) return false;
-
-                return matchesSelector.call(element, selector)
-                    ? element
-                    : (element.parentElement != null && element !== this) ? getMatchedElement(element.parentElement, selector) : false;
-            };
-
-            // find the matched element
-            // can be Element or false
-            let elDelegate = getMatchedElement(event.target, selector);
-
-            if (elDelegate) {
-                listener.call(elDelegate, event);
-            }
-        }.bind(this, selector, listener);
-
-        this.addEventListener(eventType, listenerHandler, useCapture);
+        this.addEventListener(eventType, internalHandler, false);
 
         return {
             off: () => {
-                this.removeEventListener(eventType, listenerHandler, useCapture);
-                listenerHandler = null;
+                this.removeEventListener(eventType, internalHandler, false);
+                internalHandler = null;
             }
         }
-    }
+    };
+
+    /**
+     * addDelegateListener
+     * @param eventType
+     * @param selector
+     * @param handler
+     * @returns {Array|{off: off}}
+     */
+    const addDelegateListener = function (eventType, selector, handler) {
+
+        if (this instanceof NodeList) {
+            let handlersList = [];
+            for (let i = 0; i < this.length; ++i) {
+                handlersList.push(addDelegateListenerInternal.call(this[i], eventType, selector, handler));
+            }
+            return handlersList;
+        }
+
+        if (this instanceof Element) {
+            return addDelegateListenerInternal.call(this, eventType, selector, handler);
+        }
+
+    };
+
+    Element.prototype.addDelegateListener = addDelegateListener;
+    NodeList.prototype.addDelegateListener = addDelegateListener;
 })();
