@@ -5,23 +5,19 @@ if (!Element.prototype.matches) {
         Element.prototype.webkitMatchesSelector;
 }
 /**
- * recursive matcher
- * @param orig
+ * matcher
+ * @param attachedElement
  * @param element
  * @param selector
  * @returns {boolean|{matches}}
  */
-const getMatchedElement = function (orig, element, selector) {
-    for (let el = element; el && el.nodeType !== DOCUMENT_NODE; el = el.parentElement) {
+const getMatchedElement = function (attachedElement, element, selector) {
+    for (let el = element; el && el.nodeType !== DOCUMENT_NODE && el !== attachedElement; el = el.parentElement) {
         if (el.matches(selector))
             return el;
     }
 
-    // while(element && element.nodeType !== DOCUMENT_NODE){
-    //     if(element.matches(selector))
-    //         return element;
-    //     element = element.parentElement;
-    // }
+    return attachedElement.matches(selector) ? attachedElement : false;
 };
 
 module.exports = getMatchedElement;

@@ -7,7 +7,7 @@
     "build": "webpack --mode production",
     "build:example": "webpack --config demo/example/webpack.example.config.js --mode production",
     "build:perf": "webpack --config demo/performance_test/webpack.perf.config.js --mode production",
-    "build:all": "npm run build && npm run build:example",
+    "build:all": "npm run build && npm run build:example && npm run build:perf",
     "version": "npm --no-git-tag-version version"
   },
   "keywords": [],
