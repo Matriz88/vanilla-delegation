@@ -4,13 +4,13 @@ Light vanilla event delegation.
 ### How it works
 The scripts creates a new method on `Element` prototype with following signature.
 ```text
-Element.prototype.delegator(eventType, selector, listener, useCapture = false)
+Element.prototype.addDelegateListener(eventType, selector, handler)
+NodeList.prototype.addDelegateListener(eventType, selector, handler)
 ```
 
 - **eventType**: [string] event type, for example "click", "focus", etc...
 - **selector**: [string] css child selector, must be a child of Element.
-- **listener**: [function] callback function, original event obj is passed as argument.
-- **useCapture**: [bool|optional] Default: `false`; Indicates whether events of this type will be dispatched to the registered listener before being dispatched to any EventTarget beneath it in the DOM tree. See [addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener).
+- **handler**: [function] callback function, original event obj is passed as argument.
 
 ### How to use
 ```javascript
@@ -20,8 +20,8 @@ require('event-delegation.js');
 let body = document.querySelector('body');
 
 // bind event with delegation
-let myDelegatedHandler = body.addDelegateListener('click', 'a', function (e) {
-    e.preventDefault();
+let myDelegatedHandler = body.addDelegateListener('click', 'a', function (event) {
+    event.preventDefault();
     alert('link clicked!');
 });
 
@@ -29,10 +29,19 @@ let myDelegatedHandler = body.addDelegateListener('click', 'a', function (e) {
 myDelegatedHandler.off();
 ```
 
+#### Handler
+`Event` is passed to handler function as argument.
+
+`this` is the element matching `selector`.
+
+`event.delegateTarget` is Element to which the event was originally attached (jQuery-like)
+
+### Polyfill (IE9+ support)
+
+A global polyfill is set by default:
+
+See https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+
 ### Support
+- (latest 2 versions)
 - IE 11+
-- Edge 12+
-- Firefox 34+
-- Chrome 4+
-- Safari 5+
-- Opera 21+
