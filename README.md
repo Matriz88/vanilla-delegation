@@ -16,20 +16,36 @@ NodeList.prototype.addDelegateListener(eventType, selector, handler)
 ```javascript
 require('event-delegation.js');
 
-// get an element
-let body = document.querySelector('body');
+// get single element
+const body = document.querySelector('body');
 
 // bind event with delegation
-let myDelegatedHandler = body.addDelegateListener('click', 'a', function (event) {
+const listener = body.addDelegateListener('click', 'a', function (event) {
     event.preventDefault();
     alert('link clicked!');
 });
 
-// remove the listener
-myDelegatedHandler.off();
+// remove the listener later
+listener.off();
+```
+Also can be used with `querySelectorAll`
+```javascript
+require('event-delegation.js');
+
+// get multiple elements
+const div = document.querySelectorAll('div');
+
+// bind event with delegation on every element in NodeList
+const listeners = div.addDelegateListener('click', 'a', function (event) {
+    event.preventDefault();
+    alert('link clicked!');
+});
+
+// remove all listeners
+listeners.forEach(listener => listener.off());
 ```
 
-#### Handler
+#### Handler function
 `Event` is passed to handler function as argument.
 
 `this` is the element matching `selector`.
