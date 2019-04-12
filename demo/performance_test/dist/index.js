@@ -266,28 +266,40 @@
                 return Object.prototype.hasOwnProperty.call(e, t);
             }, o.p = "", o(o.s = 0);
         }([function (e, t, n) {
-            var o,
-                r,
-                i = n(1);
-            o = function o(eventType, selector, e) {
-                var t = this,
-                    n = i(this, selector, e);
-                return this.addEventListener(eventType, n, !1), {
-                    off: function off() {
-                        t.removeEventListener(eventType, n, !1), n = null;
-                    }
+            var r,
+                o,
+                i,
+                s = n(1);
+            r = function r(e) {
+                return e;
+            }, o = function o(eventType, selector, e) {
+                var t = r(e.name + selector);
+                if (this.delegatedListenersList && e.name in this.delegatedListenersList) return console.warn("Cannot bind event. Handler and selector already registered"), !1;
+                var n = s(this, selector, e);
+                this.addEventListener(eventType, n, !1), this.delegatedListenersList || (this.delegatedListenersList = []), this.delegatedListenersList[t] = {
+                    eventType: eventType,
+                    internalHandler: n
                 };
-            }, r = function r(eventType, selector, e) {
-                if (this instanceof NodeList) {
-                    for (var t = [], n = this.length, r = 0; r < n; ++r) {
-                        t.push(o.call(this[r], eventType, selector, e));
-                    }
-
-                    return t;
-                }
-
-                return this instanceof Element ? o.call(this, eventType, selector, e) : (console.warn("Cannot bind event on non-Element objects"), !1);
-            }, Element.prototype.addDelegateListener = r, NodeList.prototype.addDelegateListener = r;
+            }, i = function i(eventType, selector, e) {
+                if ("string" == typeof eventType) {
+                    if ("string" == typeof selector) {
+                        if ("function" == typeof e && "" !== e.name) {
+                            if (this instanceof NodeList) for (var t = this.length, n = 0; n < t; ++n) {
+                                o.call(this[n], eventType, selector, e);
+                            } else this instanceof Element ? o.call(this, eventType, selector, e) : console.warn("Cannot bind event on non-Element objects");
+                        } else console.warn("Cannot bind event. Handler must be a named function in order to safely remove it later.");
+                    } else console.warn("Cannot bind event. Selector must be a string.");
+                } else console.warn("Cannot bind event. EventType must be a string.");
+            }, Element.prototype.addDelegateListener = i, Element.prototype.removeDelegateListener = function (eventType, selector, e) {
+                if ("string" == typeof eventType) {
+                    if ("string" == typeof selector) {
+                        if ("function" == typeof e && "" !== e.name) {
+                            var t = r(e.name + selector);
+                            this.delegatedListenersList && t in this.delegatedListenersList && (this.removeEventListener(this.delegatedListenersList[t].eventType, this.delegatedListenersList[t].internalHandler, !1), delete this.delegatedListenersList[t]);
+                        } else console.warn("Cannot remove event. Handler must be a named function in order to safely remove it later.");
+                    } else console.warn("Cannot remove event. Selector must be a string.");
+                } else console.warn("Cannot remove event. EventType must be a string.");
+            }, NodeList.prototype.addDelegateListener = i;
         }, function (e, t, n) {
             var r = n(2);
 
@@ -384,9 +396,12 @@
          */
         function listener(element, selector, type, callback) {
             return function (e) {
+                const t0 = performance.now();
                 e.delegateTarget = closest(e.target, selector);
 
                 if (e.delegateTarget) {
+                    const t1 = performance.now();
+                    console.log(t1 - t0);
                     callback.call(element, e);
                 }
             }
