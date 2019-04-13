@@ -1,11 +1,8 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-module.exports = {
-    entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'event-delegation.js'
-    },
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const config = {
     module: {
         rules: [
             {
@@ -20,15 +17,51 @@ module.exports = {
             }
         ]
     },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    mangle: {
-                        reserved: ['eventType', 'selector', 'listener', 'useCapture']
+};
+
+const delegationConfig = {
+    ...config, ...{
+        name: "event-delegation",
+        entry: './event-delegation.js',
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: 'event-delegation.js'
+        },
+        plugins: [
+            new CleanWebpackPlugin(),
+        ],
+        optimization: {
+            minimizer: [
+                new UglifyJsPlugin({
+                    uglifyOptions: {
+                        mangle: {
+                            reserved: ['eventType', 'selector', 'listener', 'useCapture']
+                        }
                     }
-                }
-            })
-        ]
+                })
+            ]
+        }
     }
 };
+const exampleConfig = {
+    ...config, ...{
+        name: "example",
+        entry: {
+            index: './demo/example/src/index.js'
+        },
+        plugins: [
+            new CleanWebpackPlugin(),
+        ],
+        output: {
+            path: path.resolve('./demo/example/dist')
+        },
+        optimization: {
+            minimize: false
+        }
+    }
+};
+
+// Return Array of Configurations
+module.exports = [
+    delegationConfig, exampleConfig,
+];

@@ -1,21 +1,25 @@
-require('../../../dist/event-delegation.js');
+require('../../../event-delegation.js');
 
 (function () {
     /**
      * bind event on single element
      */
-    window.singleEvent = document.querySelector('body').addDelegateListener('click', 'a', function (e) {
+
+    window.bodyHandler = function bodyHandler(e) {
         e.preventDefault();
         console.log('listen body; delegate a', this, e);
-    });
+    };
+    document.querySelector('body').addDelegateListener('click', 'a', bodyHandler);
 
     /**
      * bind event on multiple elements
      */
-    window.multipleEvents = document.querySelectorAll('div').addDelegateListener('click', 'p', function (e) {
+    window.divHandler = function divHandler(e) {
         console.log('listen div; delegate p', this, e);
-    });
+    };
+    document.querySelectorAll('div').addDelegateListener('click', 'p', divHandler);
 
-    console.log('use singleEvent.off() to remove the listener');
-    console.log('use multipleEvents.forEach(element => element.off()) to remove all multiple listeners');
+    console.log('window.bodyHandler and window.divHandler have been respectively registered on <body> and <div> elements in this page');
+    console.log(`to remove these handlers use document.querySelector('body').removeDelegateListener('click', 'a', window.bodyHandler)`);
+    console.log(`you can use removeDelegateListener() on single Element nodes only`);
 })();

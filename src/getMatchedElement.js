@@ -3,6 +3,7 @@ const ELEMENT_NODE = Node.ELEMENT_NODE;
 /**
  * apply polyfill
  */
+
 if (!Element.prototype.matches) {
     Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }

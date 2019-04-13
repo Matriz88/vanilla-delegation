@@ -3,23 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Example</title>
-    <link rel="stylesheet" href="dist/style.css">
+    <style>
+        body {
+            font-family: Arial, serif;
+            font-size: 15px;
+        }
+
+        pre {
+            padding: 20px;
+            width: auto;
+            display: inline-block;
+            white-space: pre-wrap;
+            background: #292929;
+            color: #d6d6d6;
+        }
+
+        pre .delegator {
+            color: #08b9d3;
+        }
+
+        pre .function {
+            color: #ef6517;
+        }
+
+        pre .string {
+            color: #28a728;
+        }
+
+        .columns {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+    </style>
 </head>
 <body>
-<section>
+<section class="columns">
     <div>
         <p>Binding event on "section" element and delegates to "a" tag below.</p>
-        <pre><code>require(<span class="string">'delegator.js'</span>);
+        <pre><code>let section = document.<span class="function">querySelector</span>(<span class="string">'section'</span>);
 
-let section = document.<span class="function">querySelector</span>(<span class="string">'section'</span>);
-
-section.<span class="delegator">delegator</span>(<span class="string">'click'</span>, <span class="string">'a'</span>, function(event) {
+section.<span class="delegator">addDelegateListener</span>(<span class="string">'click'</span>, <span class="string">'a'</span>, function handlerFn(event) {
     event.<span class="function">preventDefault</span>();
     <span class="function">alert</span>(<span class="string">'link clicked!'</span>);
 });</code></pre>
+        <p><a href="#">Click me!</a></p>
     </div>
     <div>
-        <p><a href="#">Click me!</a></p>
+        <p>If you want to remove the event:</p>
+        <pre><code>let section = document.<span class="function">querySelector</span>(<span class="string">'section'</span>);
+
+section.<span class="delegator">removeDelegateListener</span>(<span class="string">'click'</span>, <span class="string">'a'</span>, handlerFn);</code></pre>
+
+
     </div>
 </section>
 
