@@ -81,147 +81,221 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./demo/example/src/index.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./demo/example/src/index.js":
+/*!***********************************!*\
+  !*** ./demo/example/src/index.js ***!
+  \***********************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1);
+__webpack_require__(/*! ../../../src/event-delegation */ "./src/event-delegation.js");
 
 (function () {
   /**
    * bind event on single element
    */
-  window.myhandler1 = function myhandler1(e) {
+  window.bodyHandler = function aHandler(e) {
     e.preventDefault();
     console.log('listen body; delegate a', this, e);
   };
 
-    window.singleEvent = document.querySelector('body').addDelegateListener('click', 'a', myhandler1);
+  document.querySelector('body').addDelegateListener('click', 'a', bodyHandler);
   /**
    * bind event on multiple elements
    */
 
-  window.myhandler2 = function myhandler2(e) {
+  window.divHandler = function divHandler(e) {
     console.log('listen div; delegate p', this, e);
   };
 
-    window.multipleEvents = document.querySelectorAll('div').addDelegateListener('click', 'p', myhandler2);
-  console.log('use singleEvent.off() to remove the listener');
-  console.log('use multipleEvents.forEach(element => element.off()) to remove all multiple listeners');
+  document.querySelectorAll('div').addDelegateListener('click', 'p', divHandler);
+  console.log('window.bodyHandler and window.divHandler have been respectively registered on <body> and <div> elements in this page');
+  console.log("to removed those handlers use document.querySelector('body').removeDelegateListener('click', 'a', window.bodyHandler)");
+  console.log("you can use removeDelegateListener() on single elements only");
 })();
 
 /***/ }),
-/* 1 */
+
+/***/ "./src/createInternalHandler.js":
+/*!**************************************!*\
+  !*** ./src/createInternalHandler.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _getMatchedElement = __webpack_require__(/*! ./getMatchedElement */ "./src/getMatchedElement.js");
+/**
+ * create internal handler
+ * @param attachedElement
+ * @param selector
+ * @param handler
+ */
+
+
+var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
+  return function (selector, handler, event) {
+    var matchedElement = _getMatchedElement(this, event.target, selector);
+
+    if (matchedElement) {
+      event.delegateTarget = this; // save Element to which the event was originally attached (jQuery-like)
+
+      handler.call(matchedElement, event);
+    }
+  }.bind(attachedElement, selector, handler);
+};
+
+module.exports = createInternalHandler;
+
+/***/ }),
+
+/***/ "./src/event-delegation.js":
+/*!*********************************!*\
+  !*** ./src/event-delegation.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _createHandler = __webpack_require__(/*! ./createInternalHandler */ "./src/createInternalHandler.js");
+
+(function () {
+  /**
+   * in case string alteration needed in the future
+   * @param {string} text
+   * @returns {string}
+   */
+  var _createKey = function _createKey(text) {
+    return text;
+  };
+  /**
+   * _addDelegateListenerInternal
+   * @param {Event} eventType
+   * @param {string} selector
+   * @param {function} handler
+   * @returns {boolean}
+   */
+
+
+  var _addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler) {
+    if (this.delegatedListenersList && handler.name in this.delegatedListenersList) {
+      console.warn('Cannot bind event. Handler and selector already registered');
+      return false;
+    }
+
+    var internalHandler = _createHandler(this, selector, handler);
+
+    this.addEventListener(eventType, internalHandler, false);
+    if (!this.delegatedListenersList) this.delegatedListenersList = [];
+    if (handler.name === '') return true;
+
+    var handlerHash = _createKey(handler.name + selector);
+
+    this.delegatedListenersList[handlerHash] = {
+      eventType: eventType,
+      internalHandler: internalHandler
+    };
+  };
+  /**
+   * addDelegateListener
+   * @param {Event} eventType
+   * @param {string} selector
+   * @param {function} handler
+   */
+
+
+  var addDelegateListener = function addDelegateListener(eventType, selector, handler) {
+    if (typeof eventType !== 'string' || typeof selector !== 'string' || typeof handler !== 'function') {
+      console.warn('Cannot bind event. Wrong arguments types');
+      return false;
+    }
+
+    if (this instanceof NodeList) {
+      var length = this.length;
+
+      for (var i = 0; i < length; ++i) {
+        _addDelegateListenerInternal.call(this[i], eventType, selector, handler);
+      }
+
+      return true;
+    }
+
+    if (this instanceof Element) {
+      _addDelegateListenerInternal.call(this, eventType, selector, handler);
+
+      return true;
+    }
+
+    console.warn('Cannot bind event on non-Element objects');
+    return false;
+  };
+  /**
+   *
+   * @param {Event} eventType
+   * @param {string} selector
+   * @param {function} handler
+   */
+
+
+  var removeDelegateListener = function removeDelegateListener(eventType, selector, handler) {
+    if (typeof eventType !== 'string' || typeof selector !== 'string' || typeof handler !== 'function' || handler.name === '') {
+      console.warn('Cannot remove event. Wrong arguments types');
+      return;
+    }
+
+    var key = _createKey(handler.name + selector);
+
+    if (this.delegatedListenersList && key in this.delegatedListenersList) {
+      this.removeEventListener(this.delegatedListenersList[key].eventType, this.delegatedListenersList[key].internalHandler, false);
+      delete this.delegatedListenersList[key];
+    }
+  };
+
+  window.Element.prototype.addDelegateListener = addDelegateListener;
+  window.Element.prototype.removeDelegateListener = removeDelegateListener;
+  window.NodeList.prototype.addDelegateListener = addDelegateListener;
+})();
+
+/***/ }),
+
+/***/ "./src/getMatchedElement.js":
+/*!**********************************!*\
+  !*** ./src/getMatchedElement.js ***!
+  \**********************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var ELEMENT_NODE = Node.ELEMENT_NODE;
+/**
+ * apply polyfill
+ */
 
-!function (n) {
-  var r = {};
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+}
+/**
+ * matcher
+ * @param attachedElement
+ * @param element
+ * @param selector
+ * @returns {boolean|Element}
+ */
 
-  function o(e) {
-    if (r[e]) return r[e].exports;
-    var t = r[e] = {
-      i: e,
-      l: !1,
-      exports: {}
-    };
-    return n[e].call(t.exports, t, t.exports, o), t.l = !0, t.exports;
+
+var getMatchedElement = function getMatchedElement(attachedElement, element, selector) {
+  for (var el = element; el && el.nodeType === ELEMENT_NODE && el !== attachedElement; el = el.parentElement) {
+    if (el.matches(selector)) return el;
   }
 
-  o.m = n, o.c = r, o.d = function (e, t, n) {
-    o.o(e, t) || Object.defineProperty(e, t, {
-      enumerable: !0,
-      get: n
-    });
-  }, o.r = function (e) {
-    "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
-      value: "Module"
-    }), Object.defineProperty(e, "__esModule", {
-      value: !0
-    });
-  }, o.t = function (t, e) {
-    if (1 & e && (t = o(t)), 8 & e) return t;
-    if (4 & e && "object" == _typeof(t) && t && t.__esModule) return t;
-    var n = Object.create(null);
-    if (o.r(n), Object.defineProperty(n, "default", {
-      enumerable: !0,
-      value: t
-    }), 2 & e && "string" != typeof t) for (var r in t) {
-      o.d(n, r, function (e) {
-        return t[e];
-      }.bind(null, r));
-    }
-    return n;
-  }, o.n = function (e) {
-    var t = e && e.__esModule ? function () {
-      return e.default;
-    } : function () {
-      return e;
-    };
-    return o.d(t, "a", t), t;
-  }, o.o = function (e, t) {
-    return Object.prototype.hasOwnProperty.call(e, t);
-  }, o.p = "", o(o.s = 0);
-}([function (e, t, n) {
-    var r,
-        o,
-        i,
-        s = n(1);
-    r = function r(e) {
-        return e;
-    }, o = function o(eventType, selector, e) {
-        var t = r(e.name + selector);
-        if (this.delegatedListenersList && e.name in this.delegatedListenersList) return console.warn("Cannot bind event. Handler and selector already registered"), !1;
-        var n = s(this, selector, e);
-        this.addEventListener(eventType, n, !1), this.delegatedListenersList || (this.delegatedListenersList = []), this.delegatedListenersList[t] = {
-            eventType: eventType,
-            internalHandler: n
-    };
-    }, i = function i(eventType, selector, e) {
-        if ("string" == typeof eventType) {
-            if ("string" == typeof selector) {
-                if ("function" == typeof e && "" !== e.name) {
-                    if (this instanceof NodeList) for (var t = this.length, n = 0; n < t; ++n) {
-                        o.call(this[n], eventType, selector, e);
-                    } else this instanceof Element ? o.call(this, eventType, selector, e) : console.warn("Cannot bind event on non-Element objects");
-                } else console.warn("Cannot bind event. Handler must be a named function in order to safely remove it later.");
-            } else console.warn("Cannot bind event. Selector must be a string.");
-        } else console.warn("Cannot bind event. EventType must be a string.");
-    }, Element.prototype.addDelegateListener = i, Element.prototype.removeDelegateListener = function (eventType, selector, e) {
-        if ("string" == typeof eventType) {
-            if ("string" == typeof selector) {
-                if ("function" == typeof e && "" !== e.name) {
-                    var t = r(e.name + selector);
-                    this.delegatedListenersList && t in this.delegatedListenersList && (this.removeEventListener(this.delegatedListenersList[t].eventType, this.delegatedListenersList[t].internalHandler, !1), delete this.delegatedListenersList[t]);
-                } else console.warn("Cannot remove event. Handler must be a named function in order to safely remove it later.");
-            } else console.warn("Cannot remove event. Selector must be a string.");
-        } else console.warn("Cannot remove event. EventType must be a string.");
-    }, NodeList.prototype.addDelegateListener = i;
-}, function (e, t, n) {
-  var r = n(2);
+  return attachedElement.matches(selector) ? attachedElement : false;
+};
 
-  e.exports = function (e, selector, t) {
-    return function (selector, e, t) {
-      var n = r(this, t.target, selector);
-      n && (t.delegateTarget = this, e.call(n, t));
-    }.bind(e, selector, t);
-  };
-}, function (e, t) {
-  var r = Node.ELEMENT_NODE;
-  Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector);
-
-  e.exports = function (e, t, selector) {
-    for (var n = t; n && n.nodeType === r && n !== e; n = n.parentElement) {
-      if (n.matches(selector)) return n;
-    }
-
-    return !!e.matches(selector) && e;
-  };
-}]);
+module.exports = getMatchedElement;
 
 /***/ })
-/******/ ]);
+
+/******/ });
+//# sourceMappingURL=index.js.map

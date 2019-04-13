@@ -2,13 +2,11 @@
   "name": "event-delegation",
   "version": "2.0.0",
   "description": "",
-  "main": "dist/delegator.js",
+  "main": "dist/event-delegation.js",
   "scripts": {
     "build": "webpack --mode production",
-    "build:example": "webpack --config demo/example/webpack.example.config.js --mode production",
-    "build:perf": "webpack --config demo/performance_test/webpack.perf.config.js --mode production",
-    "build:all": "npm run build && npm run build:example && npm run build:perf",
-    "version": "npm --no-git-tag-version version"
+    "build:dev": "webpack --config webpack.dev.js --mode development",
+    "version": "npm run build && npm --no-git-tag-version version"
   },
   "keywords": [],
   "author": "",
@@ -25,8 +23,9 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
-    "webpack": "^4.29.6",
+    "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
+    "webpack-merge": "^4.2.1",
     "webpack-node-externals": "^1.7.2"
   },
   "browserslist": [

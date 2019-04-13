@@ -1,4 +1,4 @@
-const getMatchedElement = require('./getMatchedElement');
+const _getMatchedElement = require('./getMatchedElement');
 
 /**
  * create internal handler
@@ -9,7 +9,7 @@ const getMatchedElement = require('./getMatchedElement');
 const createInternalHandler = function (attachedElement, selector, handler) {
     return function (selector, handler, event) {
 
-        let matchedElement = getMatchedElement(this, event.target, selector);
+        let matchedElement = _getMatchedElement(this, event.target, selector);
 
         if (matchedElement) {
             event.delegateTarget = this; // save Element to which the event was originally attached (jQuery-like)
