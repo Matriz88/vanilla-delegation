@@ -4,7 +4,9 @@ Comparison between [this project](https://github.com/Matriz88/event-delegation) 
 
 From results below the difference is minimal but `event-delegation` lookup mechanism is slightly faster at first hits.
 
-Then browser optimizes execution and difference is even lower than before.
+Then browser optimizes execution and both libraries are equally fast.
+
+The advantage of `event-delegation` library is its lookup optimization. Look at [how to guide](/extras/how-delegation-lookup-works.md) to see how it works.
 
 | event-delegation |             |                        |  delegate   |             |                        |
 |------------------|-------------|------------------------|-------------|-------------|------------------------|
@@ -26,6 +28,7 @@ Then browser optimizes execution and difference is even lower than before.
 | 0,119999982      |             |                        | 0,115000003 |             |                        |
 | 0,110000023      |             |                        | 0,109999964 |             |                        |
 | 0,115000003      |             |                        | 0,110000023 |             |                        |
+| ...              |             |                        | ...         |             |                        |
 
 ### Scenario
 
@@ -46,6 +49,6 @@ Given 1000 nested `<p>`.
 
 Listener has been attached to the `<body>` and delegated selector was `'body'`.
 
-Clicks were fired on `<span>` so when the events propagated up to the body the listeners are triggered and both libraries had to look from up `<span>` through 999 parents to find the `body`.
+160 Clicks were fired on `<span>` so when the events propagated up to the body the listeners are triggered and both libraries had to look from up `<span>` through 999 parents to find the `body`.
 
 Each library has been tested separately on Chrome 73.

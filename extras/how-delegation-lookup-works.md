@@ -56,4 +56,4 @@ If a `click` event is triggered on `<span>` the lookup process won't find any el
 
 NOTICE that lookup will stops on `div` element, which is the one on which the listener is attached to, none of `div`'s parents will be considered and checked for matching.
 
-This improves performances and prevents any unwanted behaviour. 
+**This improves performances and prevents any unwanted behaviour.**
