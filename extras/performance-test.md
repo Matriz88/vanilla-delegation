@@ -49,6 +49,6 @@ Given 1000 nested `<p>`.
 
 Listener has been attached to the `<body>` and delegated selector was `'body'`.
 
-160 Clicks were fired on `<span>` so when the events propagated up to the body the listeners are triggered and both libraries had to look from up `<span>` through 999 parents to find the `body`.
+160 Clicks were fired on `<span>` so when the events propagated up to the body the listeners are triggered and both libraries had to look up from `<span>` through 999 parents `<p>` to find the `body`.
 
 Each library has been tested separately on Chrome 73.
