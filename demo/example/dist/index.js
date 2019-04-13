@@ -115,8 +115,8 @@ __webpack_require__(/*! ../../../src/event-delegation */ "./src/event-delegation
 
   document.querySelectorAll('div').addDelegateListener('click', 'p', divHandler);
   console.log('window.bodyHandler and window.divHandler have been respectively registered on <body> and <div> elements in this page');
-  console.log("to removed those handlers use document.querySelector('body').removeDelegateListener('click', 'a', window.bodyHandler)");
-  console.log("you can use removeDelegateListener() on single elements only");
+  console.log("to remove these handlers use document.querySelector('body').removeDelegateListener('click', 'a', window.bodyHandler)");
+  console.log("you can use removeDelegateListener() on single Element nodes only");
 })();
 
 /***/ }),
