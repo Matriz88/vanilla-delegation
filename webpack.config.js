@@ -47,13 +47,13 @@ const exampleConfig = {
     ...config, ...{
         name: "example",
         entry: {
-            index: './demo/example/src/index.js'
+            index: './extras/example/src/index.js'
         },
         plugins: [
             new CleanWebpackPlugin(),
         ],
         output: {
-            path: path.resolve('./demo/example/dist')
+            path: path.resolve('./extras/example/dist')
         },
         optimization: {
             minimize: false

@@ -4,7 +4,8 @@ Light vanilla event delegation.
 * [How to use](#how-to-use)
 * [Add listener](#add-listener)
 * [Remove listener](#remove-listener)
-* [How listener delegation works](/demo/how-delegation-lookup-works.md)
+* [How listener delegation works](/extras/how-delegation-lookup-works.md) :arrow_upper_right:
+* [Performance tests](/extras/performance-test.md) :arrow_upper_right:
 
 ## How to use
 
