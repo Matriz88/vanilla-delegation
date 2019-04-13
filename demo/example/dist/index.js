@@ -131,7 +131,7 @@ var _createHandler = __webpack_require__(2);
   };
   /**
    * _addDelegateListenerInternal
-   * @param {Event} eventType
+   * @param {string} eventType
    * @param {string} selector
    * @param {function} handler
    * @returns {boolean}
@@ -159,7 +159,7 @@ var _createHandler = __webpack_require__(2);
   };
   /**
    * addDelegateListener
-   * @param {Event} eventType
+   * @param {string} eventType
    * @param {string} selector
    * @param {function} handler
    */
@@ -192,7 +192,7 @@ var _createHandler = __webpack_require__(2);
   };
   /**
    *
-   * @param {Event} eventType
+   * @param {string} eventType
    * @param {string} selector
    * @param {function} handler
    */

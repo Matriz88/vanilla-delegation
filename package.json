@@ -1,6 +1,6 @@
 {
   "name": "event-delegation",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "dist/event-delegation.js",
   "scripts": {
