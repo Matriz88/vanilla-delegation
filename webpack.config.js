@@ -1,5 +1,6 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = {
     module: {
@@ -21,11 +22,14 @@ const config = {
 const delegationConfig = {
     ...config, ...{
         name: "event-delegation",
-        entry: './src/event-delegation.js',
+        entry: './event-delegation.js',
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: 'event-delegation.js'
         },
+        plugins: [
+            new CleanWebpackPlugin(),
+        ],
         optimization: {
             minimizer: [
                 new UglifyJsPlugin({
@@ -45,6 +49,9 @@ const exampleConfig = {
         entry: {
             index: './demo/example/src/index.js'
         },
+        plugins: [
+            new CleanWebpackPlugin(),
+        ],
         output: {
             path: path.resolve('./demo/example/dist')
         },

@@ -1,7 +1,11 @@
 # Event delegation
 Light vanilla event delegation.
 
-### How it works
+* [How to use](#how-to-use)
+* [How listener delegation works](/demo/how-delegation-lookup-works.md)
+
+## How to use
+
 The scripts creates a new method on `Element` prototype with following signature.
 ```text
 Element.prototype.addDelegateListener(eventType, selector, handler)
@@ -12,7 +16,8 @@ NodeList.prototype.addDelegateListener(eventType, selector, handler)
 - **selector**: [string] css child selector, must be a child of Element.
 - **handler**: [function] callback function, original event obj is passed as argument.
 
-### How to use
+## Add listener
+
 ```javascript
 require('event-delegation.js');
 
@@ -44,6 +49,17 @@ const listeners = div.addDelegateListener('click', 'a', function (event) {
 // remove all listeners
 listeners.forEach(listener => listener.off());
 ```
+
+## Remove listener
+In order to remove a listener be sure to pass a named function to `removeDelegateListener()`
+```javascript
+const div = document.querySelector('div');
+div.removeDelegateListener('click', 'a', handlerFn);
+```
+
+`removeDelegateListener()` can be used on single Element nodes only
+
+---
 
 #### Handler function
 `Event` is passed to handler function as argument.

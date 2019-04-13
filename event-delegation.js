@@ -1,4 +1,4 @@
-const _createHandler = require('./createInternalHandler');
+const _createHandler = require('./src/createInternalHandler');
 
 (function () {
     /**
@@ -12,7 +12,7 @@ const _createHandler = require('./createInternalHandler');
 
     /**
      * _addDelegateListenerInternal
-     * @param {Event} eventType
+     * @param {string} eventType
      * @param {string} selector
      * @param {function} handler
      * @returns {boolean}
@@ -43,7 +43,7 @@ const _createHandler = require('./createInternalHandler');
 
     /**
      * addDelegateListener
-     * @param {Event} eventType
+     * @param {string} eventType
      * @param {string} selector
      * @param {function} handler
      */
@@ -72,7 +72,7 @@ const _createHandler = require('./createInternalHandler');
 
     /**
      *
-     * @param {Event} eventType
+     * @param {string} eventType
      * @param {string} selector
      * @param {function} handler
      */

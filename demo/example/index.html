@@ -29,23 +29,33 @@
         pre .string {
             color: #28a728;
         }
+
+        .columns {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
     </style>
 </head>
 <body>
-<section>
+<section class="columns">
     <div>
         <p>Binding event on "section" element and delegates to "a" tag below.</p>
-        <pre><code>require(<span class="string">'delegator.js'</span>);
+        <pre><code>let section = document.<span class="function">querySelector</span>(<span class="string">'section'</span>);
 
-let section = document.<span class="function">querySelector</span>(<span class="string">'section'</span>);
-
-section.<span class="delegator">delegator</span>(<span class="string">'click'</span>, <span class="string">'a'</span>, function(event) {
+section.<span class="delegator">addDelegateListener</span>(<span class="string">'click'</span>, <span class="string">'a'</span>, function handlerFn(event) {
     event.<span class="function">preventDefault</span>();
     <span class="function">alert</span>(<span class="string">'link clicked!'</span>);
 });</code></pre>
+        <p><a href="#">Click me!</a></p>
     </div>
     <div>
-        <p><a href="#">Click me!</a></p>
+        <p>If you want to remove the event:</p>
+        <pre><code>let section = document.<span class="function">querySelector</span>(<span class="string">'section'</span>);
+
+section.<span class="delegator">removeDelegateListener</span>(<span class="string">'click'</span>, <span class="string">'a'</span>, handlerFn);</code></pre>
+
+
     </div>
 </section>
 

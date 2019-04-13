@@ -81,25 +81,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./demo/example/src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./demo/example/src/index.js":
-/*!***********************************!*\
-  !*** ./demo/example/src/index.js ***!
-  \***********************************/
-/*! no static exports found */
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../../../src/event-delegation */ "./src/event-delegation.js");
+__webpack_require__(1);
 
 (function () {
   /**
    * bind event on single element
    */
-  window.bodyHandler = function aHandler(e) {
+  window.bodyHandler = function bodyHandler(e) {
     e.preventDefault();
     console.log('listen body; delegate a', this, e);
   };
@@ -120,47 +115,10 @@ __webpack_require__(/*! ../../../src/event-delegation */ "./src/event-delegation
 })();
 
 /***/ }),
-
-/***/ "./src/createInternalHandler.js":
-/*!**************************************!*\
-  !*** ./src/createInternalHandler.js ***!
-  \**************************************/
-/*! no static exports found */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _getMatchedElement = __webpack_require__(/*! ./getMatchedElement */ "./src/getMatchedElement.js");
-/**
- * create internal handler
- * @param attachedElement
- * @param selector
- * @param handler
- */
-
-
-var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
-  return function (selector, handler, event) {
-    var matchedElement = _getMatchedElement(this, event.target, selector);
-
-    if (matchedElement) {
-      event.delegateTarget = this; // save Element to which the event was originally attached (jQuery-like)
-
-      handler.call(matchedElement, event);
-    }
-  }.bind(attachedElement, selector, handler);
-};
-
-module.exports = createInternalHandler;
-
-/***/ }),
-
-/***/ "./src/event-delegation.js":
-/*!*********************************!*\
-  !*** ./src/event-delegation.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _createHandler = __webpack_require__(/*! ./createInternalHandler */ "./src/createInternalHandler.js");
+var _createHandler = __webpack_require__(2);
 
 (function () {
   /**
@@ -260,12 +218,34 @@ var _createHandler = __webpack_require__(/*! ./createInternalHandler */ "./src/c
 })();
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./src/getMatchedElement.js":
-/*!**********************************!*\
-  !*** ./src/getMatchedElement.js ***!
-  \**********************************/
-/*! no static exports found */
+var _getMatchedElement = __webpack_require__(3);
+/**
+ * create internal handler
+ * @param attachedElement
+ * @param selector
+ * @param handler
+ */
+
+
+var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
+  return function (selector, handler, event) {
+    var matchedElement = _getMatchedElement(this, event.target, selector);
+
+    if (matchedElement) {
+      event.delegateTarget = this; // save Element to which the event was originally attached (jQuery-like)
+
+      handler.call(matchedElement, event);
+    }
+  }.bind(attachedElement, selector, handler);
+};
+
+module.exports = createInternalHandler;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var ELEMENT_NODE = Node.ELEMENT_NODE;
@@ -296,6 +276,4 @@ var getMatchedElement = function getMatchedElement(attachedElement, element, sel
 module.exports = getMatchedElement;
 
 /***/ })
-
-/******/ });
-//# sourceMappingURL=index.js.map
+/******/ ]);

@@ -1,11 +1,11 @@
-require('../../../src/event-delegation');
+require('../../../event-delegation.js');
 
 (function () {
     /**
      * bind event on single element
      */
 
-    window.bodyHandler = function aHandler(e) {
+    window.bodyHandler = function bodyHandler(e) {
         e.preventDefault();
         console.log('listen body; delegate a', this, e);
     };
