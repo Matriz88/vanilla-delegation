@@ -31,9 +31,6 @@ body.addDelegateListener('click', 'a', function (event) {
     event.preventDefault();
     alert('link clicked!');
 });
-
-// remove the listener later
-listener.off();
 ```
 Also can be used with `querySelectorAll`
 ```javascript
@@ -47,9 +44,6 @@ div.addDelegateListener('click', 'a', function (event) {
     event.preventDefault();
     alert('link clicked!');
 });
-
-// remove all listeners
-listeners.forEach(listener => listener.off());
 ```
 
 ## Remove listener
