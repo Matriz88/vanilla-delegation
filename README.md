@@ -9,10 +9,14 @@ Light vanilla event delegation.
 
 ## How to use
 
-The scripts creates a new method on `Element` prototype with following signature.
+The scripts creates new methods on `Element` and `NodeList` prototypes with following signature.
 ```text
+Add:
 Element.prototype.addDelegateListener(eventType, selector, handler)
 NodeList.prototype.addDelegateListener(eventType, selector, handler)
+
+Remove:
+Element.prototype.removeDelegateListener(eventType, selector, handler)
 ```
 
 - **eventType**: [string] event type, for example "click", "focus", etc...
