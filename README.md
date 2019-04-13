@@ -27,7 +27,7 @@ require('event-delegation.js');
 const body = document.querySelector('body');
 
 // bind event with delegation
-const listener = body.addDelegateListener('click', 'a', function (event) {
+body.addDelegateListener('click', 'a', function (event) {
     event.preventDefault();
     alert('link clicked!');
 });
@@ -43,7 +43,7 @@ require('event-delegation.js');
 const div = document.querySelectorAll('div');
 
 // bind event with delegation on every element in NodeList
-const listeners = div.addDelegateListener('click', 'a', function (event) {
+div.addDelegateListener('click', 'a', function (event) {
     event.preventDefault();
     alert('link clicked!');
 });
