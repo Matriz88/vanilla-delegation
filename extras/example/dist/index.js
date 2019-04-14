@@ -231,7 +231,7 @@ var _getMatchedElement = __webpack_require__(3);
 
 
 var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
-  return function (selector, handler, event) {
+  return function () {
     var matchedElement = _getMatchedElement(this, event.target, selector);
 
     if (matchedElement) {
@@ -239,7 +239,7 @@ var createInternalHandler = function createInternalHandler(attachedElement, sele
 
       handler.call(matchedElement, event);
     }
-  }.bind(attachedElement, selector, handler);
+  };
 };
 
 module.exports = createInternalHandler;

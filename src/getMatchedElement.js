@@ -5,7 +5,7 @@ const ELEMENT_NODE = Node.ELEMENT_NODE;
  */
 
 if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 /**
  * matcher
@@ -15,11 +15,11 @@ if (!Element.prototype.matches) {
  * @returns {boolean|Element}
  */
 const getMatchedElement = function (attachedElement, element, selector) {
-    for (let el = element; el && el.nodeType === ELEMENT_NODE && el !== attachedElement; el = el.parentElement) {
-        if (el.matches(selector)) return el;
-    }
+  for (let el = element; el && el.nodeType === ELEMENT_NODE && el !== attachedElement; el = el.parentElement) {
+    if (el.matches(selector)) return el;
+  }
 
-    return attachedElement.matches(selector) ? attachedElement : false;
+  return attachedElement.matches(selector) ? attachedElement : false;
 };
 
 module.exports = getMatchedElement;
