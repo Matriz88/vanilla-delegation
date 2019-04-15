@@ -12,7 +12,8 @@ const createInternalHandler = function (attachedElement, selector, handler) {
     let matchedElement = _getMatchedElement(this, event.target, selector);
 
     if (matchedElement) {
-      event.delegateTarget = this; // save Element to which the event was originally attached (jQuery-like)
+      // save Element to which the event was originally attached (jQuery-like)
+      event.delegateTarget = this;
       handler.call(matchedElement, event);
     }
   };

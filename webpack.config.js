@@ -14,6 +14,14 @@ const config = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          fix: true
+        }
       }
     ]
   },
@@ -21,7 +29,7 @@ const config = {
 
 const delegationConfig = {
   ...config, ...{
-    name: "event-delegation",
+    name: 'event-delegation',
     entry: './event-delegation.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -35,7 +43,12 @@ const delegationConfig = {
         new UglifyJsPlugin({
           uglifyOptions: {
             mangle: {
-              reserved: ['eventType', 'selector', 'listener', 'useCapture']
+              reserved: [
+                'eventType',
+                'selector',
+                'listener',
+                'useCapture'
+              ]
             }
           }
         })
@@ -45,7 +58,7 @@ const delegationConfig = {
 };
 const exampleConfig = {
   ...config, ...{
-    name: "example",
+    name: 'example',
     entry: {
       index: './extras/example/src/index.js'
     },
@@ -63,5 +76,6 @@ const exampleConfig = {
 
 // Return Array of Configurations
 module.exports = [
-  delegationConfig, exampleConfig,
+  delegationConfig,
+  exampleConfig,
 ];
