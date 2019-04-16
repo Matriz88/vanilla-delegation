@@ -1,4 +1,7 @@
 # Vanilla-delegation
+
+![npm](https://img.shields.io/npm/v/vanilla-delegation.svg?style=flat-square) ![NPM](https://img.shields.io/npm/l/vanilla-delegation.svg?style=flat-square) ![npm bundle size](https://img.shields.io/bundlephobia/min/vanilla-delegation.svg?style=flat-square)
+
 Light vanilla event delegation.
 
 * [How to use](#how-to-use)
