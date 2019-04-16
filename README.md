@@ -21,7 +21,8 @@ Element.prototype.removeDelegateListener(eventType, selector, handler)
 
 - **eventType**: [string] event type, for example "click", "focus", etc...
 - **selector**: [string] css child selector, must be a child of Element.
-- **handler**: [function] callback function, original event obj is passed as argument.
+- **handler**: [function] callback function, original event obj is passed as argument ([more details here](#handler-function)).<br />
+Be sure to pass a named function so you can remove it with `removeDelegateListener()` if needed. In case you're using uglify-js be sure to set `keep_fnames: true` in your `uglifyOptions` ([more details here](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#uglifyoptions))
 
 ## Add listener
 

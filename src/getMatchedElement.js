@@ -1,5 +1,3 @@
-const ELEMENT_NODE = Node.ELEMENT_NODE;
-
 /**
  * apply polyfill
  */
@@ -15,6 +13,9 @@ if (!Element.prototype.matches) {
  * @returns {boolean|Element}
  */
 const getMatchedElement = function (attachedElement, element, selector) {
+  // node.ELEMENT_NODE;
+  const ELEMENT_NODE = 1;
+
   for (let el = element; el && el.nodeType === ELEMENT_NODE && el !== attachedElement; el = el.parentElement) {
     if (el.matches(selector)) return el;
   }
@@ -23,3 +24,4 @@ const getMatchedElement = function (attachedElement, element, selector) {
 };
 
 module.exports = getMatchedElement;
+

@@ -2,7 +2,7 @@
   "name": "vanilla-delegation",
   "version": "2.1.0",
   "description": "Light vanilla event delegation.",
-  "main": "dist/vanilla-delegation.js",
+  "main": "dist/vanilla-delegation.min.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
     "build:dev": "webpack --config webpack.dev.js --mode development",

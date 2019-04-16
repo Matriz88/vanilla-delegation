@@ -23,10 +23,13 @@ const config = {
 const delegationConfig = webpackMerge(
   config, {
     name: 'vanilla-delegation',
-    entry: './vanilla-delegation.js',
+    entry: {
+      'vanilla-delegation': './vanilla-delegation.js',
+      'vanilla-delegation.min': './vanilla-delegation.js',
+    },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'vanilla-delegation.js'
+      filename: '[name].js'
     },
     module: {
       rules: [
@@ -46,13 +49,13 @@ const delegationConfig = webpackMerge(
     optimization: {
       minimizer: [
         new UglifyJsPlugin({
+          include: /\.min\.js$/,
           uglifyOptions: {
             mangle: {
               reserved: [
                 'eventType',
                 'selector',
-                'listener',
-                'useCapture'
+                'handler'
               ]
             }
           }

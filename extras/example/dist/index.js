@@ -233,7 +233,7 @@ var _getMatchedElement = __webpack_require__(3);
 
 
 var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
-  return function () {
+  return function (selector, handler) {
     var matchedElement = _getMatchedElement(this, event.target, selector);
 
     if (matchedElement) {
@@ -241,7 +241,7 @@ var createInternalHandler = function createInternalHandler(attachedElement, sele
       event.delegateTarget = this;
       handler.call(matchedElement, event);
     }
-  };
+  }.bind(attachedElement, selector, handler);
 };
 
 module.exports = createInternalHandler;
@@ -250,11 +250,9 @@ module.exports = createInternalHandler;
 /* 3 */
 /***/ (function(module, exports) {
 
-var ELEMENT_NODE = Node.ELEMENT_NODE;
 /**
  * apply polyfill
  */
-
 if (!Element.prototype.matches) {
   Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
@@ -268,6 +266,9 @@ if (!Element.prototype.matches) {
 
 
 var getMatchedElement = function getMatchedElement(attachedElement, element, selector) {
+  // node.ELEMENT_NODE;
+  var ELEMENT_NODE = 1;
+
   for (var el = element; el && el.nodeType === ELEMENT_NODE && el !== attachedElement; el = el.parentElement) {
     if (el.matches(selector)) return el;
   }
