@@ -1,4 +1,4 @@
-# Event delegation
+# Vanilla-delegation
 Light vanilla event delegation.
 
 * [How to use](#how-to-use)
