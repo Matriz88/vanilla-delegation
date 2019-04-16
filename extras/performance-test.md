@@ -1,54 +1,105 @@
 # Performance test
 
-Comparison between [this project](https://github.com/Matriz88/event-delegation) and most downloaded event delegation library on npm ([here](https://www.npmjs.com/package/delegate)).
+Comparison between:
+* vanilla-delegation [here](https://github.com/Matriz88/event-delegation)
+* delegate ([here](https://www.npmjs.com/package/delegate))
+* jQuery 3.4.0.
 
-From results below the difference is minimal but `event-delegation` lookup mechanism is slightly faster at first hits.
+From results below the difference is minimal both vanilla libraries are equally fast and faster than jQuery.
 
-Then browser optimizes execution and both libraries are equally fast.
+However the advantage of `vanilla-delegation` library is its lookup optimization. Look the [how to guide](/extras/how-delegation-lookup-works.md) to see how it works.
 
-The advantage of `event-delegation` library is its lookup optimization. Look at [how to guide](/extras/how-delegation-lookup-works.md) to see how it works.
+The following results are meant to demonstrate the performance of native libraries such as vanilla-delegation or delegate.
 
-| event-delegation |             |                        |  delegate   |             |                        |
-|------------------|-------------|------------------------|-------------|-------------|------------------------|
-| tests (ms)       | avg (ms)    | avg first 10 hits (ms) | tests (ms)  | avg (ms)    | avg first 10 hits (ms) |
-| 0,319999992      | 0,126512342 | 0,294999989            | 0,404999999 | 0,122006177 | 0,301666661            |
-| 0,300000014      |             |                        | 0,324999972 |             |                        |
-| 0,244999945      |             |                        | 0,250000041 |             |                        |
-| 0,249999983      |             |                        | 0,264999981 |             |                        |
-| 0,254999963      |             |                        | 0,255000021 |             |                        |
-| 0,245000003      |             |                        | 0,260000001 |             |                        |
-| 0,254999963      |             |                        | 0,274999999 |             |                        |
-| 0,260000001      |             |                        | 0,569999975 |             |                        |
-| 0,525000039      |             |                        | 0,109999964 |             |                        |
-| 0,119999982      |             |                        | 0,110000023 |             |                        |
-| 0,120000041      |             |                        | 0,110000023 |             |                        |
-| 0,115000003      |             |                        | 0,115000003 |             |                        |
-| 0,120000041      |             |                        | 0,110000023 |             |                        |
-| 0,115000003      |             |                        | 0,109999964 |             |                        |
-| 0,119999982      |             |                        | 0,115000003 |             |                        |
-| 0,110000023      |             |                        | 0,109999964 |             |                        |
-| 0,115000003      |             |                        | 0,110000023 |             |                        |
-| ...              |             |                        | ...         |             |                        |
+**vanilla-delegation**
 
-### Scenario
+TOTAL AVG (ms): 0,221149998639400
+
+|    test 1 (ms)    |    test 2 (ms)    |    test 3 (ms)    |
+|-------------------|-------------------|-------------------|
+| 0,469999969936907 | 0,630000024102628 | 0,505000003613531 |
+| 0,334999989718198 | 0,464999990072101 | 0,440000032540410 |
+| 0,300000014249235 | 0,414999958593398 | 0,315000012051314 |
+| 0,324999971780926 | 0,354999967385083 | 0,304999994114041 |
+| 0,304999994114041 | 0,324999971780926 | 0,360000005457550 |
+| 0,300000014249235 | 0,349999987520277 | 0,300000014249235 |
+| 0,304999994114041 | 0,304999994114041 | 0,319999991916120 |
+| 0,534999999217689 | 0,554999976884573 | 0,609999988228082 |
+| 0,315000012051314 | 0,310000032186508 | 0,309999973978847 |
+| 0,304999994114041 | 0,309999973978847 | 0,409999978728592 |
+| 0,305000052321702 | 0,300000014249235 | 0,179999973624944 |
+| 0,304999994114041 | 0,295000034384429 | 0,174999993760138 |
+| 2,050000010058280 | 0,524999981280416 | 0,209999969229102 |
+| 0,180000031832605 | 0,190000049769878 | 0,240000023040920 |
+| ...               | ...               | ...               |
+
+**delegation**
+
+TOTAL AVG (ms): 0,271800000142927
+
+|    test 1 (ms)    |    test 2 (ms)    |    test 3 (ms)    |
+|-------------------|-------------------|-------------------|
+| 0,569999974686652 | 0,564999994821846 | 0,729999970644712 |
+| 0,390000001061707 | 0,414999958593398 | 0,514999963343143 |
+| 0,410000036936253 | 0,390000001061707 | 0,464999990072101 |
+| 0,370000023394823 | 0,365000043530017 | 0,479999987874180 |
+| 0,670000037644058 | 0,364999985322356 | 0,469999969936907 |
+| 0,360000005457550 | 0,360000005457550 | 0,539999979082494 |
+| 0,360000005457550 | 0,380000041332095 | 0,469999969936907 |
+| 0,675000017508864 | 0,639999983832240 | 0,784999981988221 |
+| 0,590000010561197 | 0,370000023394823 | 0,514999963343143 |
+| 0,505000003613531 | 0,375000003259629 | 2,815000014379620 |
+| 0,479999987874180 | 0,364999985322356 | 0,250000040978193 |
+| 0,479999987874180 | 0,400000018998980 | 0,255000020842999 |
+| 3,014999965671440 | 0,379999983124434 | 0,255000020842999 |
+| 0,699999975040555 | 0,365000043530017 | 0,264999980572611 |
+| ...               | ...               | ...               |
+
+**jQuery**
+
+TOTAL AVG (ms): 1,636349998686150
+
+|    test 1 (ms)    |    test 2 (ms)    |    test 3 (ms)    |
+|-------------------|-------------------|-------------------|
+| 6,489999999757850 | 4,820000031031660 | 7,379999966360620 |
+| 3,425000002607700 | 2,149999956600360 | 4,314999969210470 |
+| 2,810000034514810 | 3,055000037420540 | 4,119999997783450 |
+| 3,014999965671440 | 2,540000015869730 | 4,970000009052450 |
+| 6,790000014007090 | 5,530000024009490 | 4,140000033657990 |
+| 5,599999974947420 | 1,575000002048900 | 2,099999983329320 |
+| 2,924999978858970 | 1,219999976456160 | 1,434999983757730 |
+| 3,410000004805620 | 1,175000041257590 | 1,459999999497080 |
+| 2,989999949932090 | 2,089999965392050 | 1,440000021830200 |
+| 4,189999948721370 | 1,315000001341100 | 1,584999961778520 |
+| 3,209999995306130 | 1,229999994393430 | 2,310000010766080 |
+| 2,589999989140770 | 1,179999962914730 | 1,690000004600730 |
+| 2,510000020265570 | 1,149999967310570 | 1,504999992903320 |
+| 1,749999995809040 | 1,174999983049920 | 1,459999999497080 |
+| ...               | ...               | ...               |
+
+### Test Scenario
 
 Given 1000 nested `<p>`.
 ```html
 <body>
-    <p>
-        <p>
-            ...
-                <p>
-                    <span></span>
-                </p>
-            ...
-        </p>
-    </p>
+  <section>
+      <p>
+          <p>
+              ...
+                  <p>
+                      <span></span>
+                  </p>
+              ...
+          </p>
+      </p>
+    </section>
 </body>
 ```
 
-Listener has been attached to the `<body>` and delegated selector was `'body'`.
+Listener has been attached to the `<body>` and delegated selector was `'section'`.
 
-160 Clicks were fired on `<span>` so when the events propagated up to the body the listeners are triggered and both libraries had to look up from `<span>` through 999 parents `<p>` to find the `body`.
+200 Clicks were fired on last `<span>` so when the event propagates up to the body the listener is triggered the libraries have to look up from `<span>` through 999 parents `<p>` to find the `section`.
+
+3 test samples have been chosen randomly for each library.
 
 Each library has been tested separately on Chrome 73.

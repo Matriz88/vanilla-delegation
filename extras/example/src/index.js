@@ -1,4 +1,4 @@
-require('../../../event-delegation.js');
+require('../../../vanilla-delegation');
 
 (function () {
     /**

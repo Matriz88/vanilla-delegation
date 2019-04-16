@@ -90,30 +90,56 @@
 
 __webpack_require__(1);
 
+var delegate = __webpack_require__(4);
+
 (function () {
-  /**
-   * bind event on single element
-   */
-  var bodyHandler = function bodyHandler(e) {
-    e.preventDefault();
-    console.log('listen body; delegate a', this, e);
+  var prepareDom = function prepareDom() {
+    var counter = 0;
+    var max = 1000;
+
+    var recursAppend = function recursAppend(el) {
+      if (counter === max) return false;
+      var newEl = document.createElement(counter === max - 1 ? 'span' : 'p');
+      el.appendChild(newEl);
+      counter++;
+      recursAppend(newEl);
+    };
+
+    var section = document.querySelector('section');
+    recursAppend(section);
   };
 
-  document.querySelector('body').addDelegateListener('click', 'a', bodyHandler);
-  /**
-   * bind event on multiple elements
-   */
+  prepareDom();
+  var spanElement = document.querySelector('span');
+  var t0;
+  var t1; // delegate test
+  //
+  // delegate(document.querySelector('body'), 'section', 'click', (e) => {
+  //   t1 = performance.now();
+  //   console.log(t1 - t0);
+  // }, false);
+  // jQuery test
+  //
+  // $('body').
+  //   on('click', 'section', (e) => {
+  //     t1 = performance.now();
+  //     console.log(t1 - t0);
+  //   });
+  // vanilla-delegation test
+  //
+  // document.querySelector('body').
+  //   addDelegateListener('click', 'section', (e) => {
+  //     t1 = performance.now();
+  //     console.log(t1 - t0);
+  //   });
+  // run 100 clicks
 
-  var divHandler = function divHandler(e) {
-    console.log('listen div; delegate p', this, e);
-  };
+  var i = 100;
 
-  document.querySelectorAll('div').addDelegateListener('click', 'p', divHandler);
-  window.bodyHandler = bodyHandler;
-  window.divHandler = divHandler;
-  console.log('window.bodyHandler and window.divHandler have been respectively registered on <body> and <div> elements in this page');
-  console.log('to remove these handlers use document.querySelector(\'body\').removeDelegateListener(\'click\', \'a\', window.bodyHandler)');
-  console.log('you can use removeDelegateListener() on single Element nodes only');
+  while (i--) {
+    t0 = performance.now();
+    spanElement.click();
+  }
 })();
 
 /***/ }),
@@ -276,6 +302,129 @@ var getMatchedElement = function getMatchedElement(attachedElement, element, sel
 };
 
 module.exports = getMatchedElement;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var closest = __webpack_require__(5);
+
+/**
+ * Delegates event to a selector.
+ *
+ * @param {Element} element
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @param {Boolean} useCapture
+ * @return {Object}
+ */
+function _delegate(element, selector, type, callback, useCapture) {
+    var listenerFn = listener.apply(this, arguments);
+
+    element.addEventListener(type, listenerFn, useCapture);
+
+    return {
+        destroy: function() {
+            element.removeEventListener(type, listenerFn, useCapture);
+        }
+    }
+}
+
+/**
+ * Delegates event to a selector.
+ *
+ * @param {Element|String|Array} [elements]
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @param {Boolean} useCapture
+ * @return {Object}
+ */
+function delegate(elements, selector, type, callback, useCapture) {
+    // Handle the regular Element usage
+    if (typeof elements.addEventListener === 'function') {
+        return _delegate.apply(null, arguments);
+    }
+
+    // Handle Element-less usage, it defaults to global delegation
+    if (typeof type === 'function') {
+        // Use `document` as the first parameter, then apply arguments
+        // This is a short way to .unshift `arguments` without running into deoptimizations
+        return _delegate.bind(null, document).apply(null, arguments);
+    }
+
+    // Handle Selector-based usage
+    if (typeof elements === 'string') {
+        elements = document.querySelectorAll(elements);
+    }
+
+    // Handle Array-like based usage
+    return Array.prototype.map.call(elements, function (element) {
+        return _delegate(element, selector, type, callback, useCapture);
+    });
+}
+
+/**
+ * Finds closest match and invokes callback.
+ *
+ * @param {Element} element
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} callback
+ * @return {Function}
+ */
+function listener(element, selector, type, callback) {
+    return function(e) {
+        e.delegateTarget = closest(e.target, selector);
+
+        if (e.delegateTarget) {
+            callback.call(element, e);
+        }
+    }
+}
+
+module.exports = delegate;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var DOCUMENT_NODE_TYPE = 9;
+
+/**
+ * A polyfill for Element.matches()
+ */
+if (typeof Element !== 'undefined' && !Element.prototype.matches) {
+    var proto = Element.prototype;
+
+    proto.matches = proto.matchesSelector ||
+                    proto.mozMatchesSelector ||
+                    proto.msMatchesSelector ||
+                    proto.oMatchesSelector ||
+                    proto.webkitMatchesSelector;
+}
+
+/**
+ * Finds the closest parent that matches a selector.
+ *
+ * @param {Element} element
+ * @param {String} selector
+ * @return {Function}
+ */
+function closest (element, selector) {
+    while (element && element.nodeType !== DOCUMENT_NODE_TYPE) {
+        if (typeof element.matches === 'function' &&
+            element.matches(selector)) {
+          return element;
+        }
+        element = element.parentNode;
+    }
+}
+
+module.exports = closest;
+
 
 /***/ })
 /******/ ]);

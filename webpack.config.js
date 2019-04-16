@@ -1,6 +1,7 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpackMerge = require('webpack-merge');
 
 const config = {
   module: {
@@ -14,26 +15,30 @@ const config = {
             presets: ['@babel/preset-env']
           }
         }
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          fix: true
-        }
       }
     ]
   },
 };
 
-const delegationConfig = {
-  ...config, ...{
-    name: 'event-delegation',
-    entry: './event-delegation.js',
+const delegationConfig = webpackMerge(
+  config, {
+    name: 'vanilla-delegation',
+    entry: './vanilla-delegation.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'event-delegation.js'
+      filename: 'vanilla-delegation.js'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules|dist/,
+          loader: 'eslint-loader',
+          options: {
+            fix: true
+          }
+        }
+      ]
     },
     plugins: [
       new CleanWebpackPlugin(),
@@ -55,9 +60,9 @@ const delegationConfig = {
       ]
     }
   }
-};
-const exampleConfig = {
-  ...config, ...{
+);
+const exampleConfig = webpackMerge(
+  config, {
     name: 'example',
     entry: {
       index: './extras/example/src/index.js'
@@ -72,10 +77,28 @@ const exampleConfig = {
       minimize: false
     }
   }
-};
+);
+const perfConfig = webpackMerge(
+  config, {
+    name: 'perf-test',
+    entry: {
+      index: './extras/perf-test/src/index.js'
+    },
+    plugins: [
+      new CleanWebpackPlugin(),
+    ],
+    output: {
+      path: path.resolve('./extras/perf-test/dist')
+    },
+    optimization: {
+      minimize: false
+    }
+  }
+);
 
 // Return Array of Configurations
 module.exports = [
   delegationConfig,
   exampleConfig,
+  perfConfig
 ];

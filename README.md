@@ -26,7 +26,7 @@ Element.prototype.removeDelegateListener(eventType, selector, handler)
 ## Add listener
 
 ```javascript
-require('event-delegation.js');
+require('vanilla-delegation.js');
 
 // get single element
 const body = document.querySelector('body');
@@ -39,7 +39,7 @@ body.addDelegateListener('click', 'a', function handlerFn(event) {
 ```
 Also can be used with `querySelectorAll`
 ```javascript
-require('event-delegation.js');
+require('vanilla-delegation.js');
 
 // get multiple elements
 const div = document.querySelectorAll('div');

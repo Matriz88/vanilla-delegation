@@ -10,5 +10,6 @@ const config = {
 };
 module.exports = [
   webpackMerge(webpackConfig[0], config),
-  webpackMerge(webpackConfig[1], config)
+  webpackMerge(webpackConfig[1], config),
+  webpackMerge(webpackConfig[2], config)
 ];

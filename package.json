@@ -1,16 +1,23 @@
 {
-  "name": "event-delegation",
+  "name": "vanilla-delegation",
   "version": "2.1.0",
-  "description": "",
-  "main": "dist/event-delegation.js",
+  "description": "Light vanilla event delegation.",
+  "main": "dist/vanilla-delegation.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
     "build:dev": "webpack --config webpack.dev.js --mode development",
     "version": "npm run build && npm --no-git-tag-version version"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Matriz88/event-delegation"
+  },
+  "keywords": [
+    "event-delegation",
+    "vanillajs"
+  ],
+  "author": "Matteo Rizzatti",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
@@ -34,5 +41,6 @@
   "browserslist": [
     "last 2 versions",
     "ie >= 11"
-  ]
+  ],
+  "dependencies": {}
 }
