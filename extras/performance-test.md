@@ -1,7 +1,7 @@
 # Performance test
 
 Comparison between:
-* vanilla-delegation [here](https://github.com/Matriz88/event-delegation)
+* vanilla-delegation ([here](https://github.com/Matriz88/event-delegation))
 * delegate ([here](https://www.npmjs.com/package/delegate))
 * jQuery 3.4.0.
 
