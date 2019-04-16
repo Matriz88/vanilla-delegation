@@ -7,7 +7,7 @@ Comparison between:
 
 From results below the difference is minimal both vanilla libraries are equally fast and faster than jQuery.
 
-However the advantage of `vanilla-delegation` library is its lookup optimization. Look the [how to guide](/extras/how-delegation-lookup-works.md) to see how it works.
+However the advantage of `vanilla-delegation` library is its lookup optimization. Look the [how to guide](/extras/how-delegation-lookup-works.md) to see how it works and how it prevents unnecessary checks, making it even faster than the other libraries in some scenarios.
 
 The following results are meant to demonstrate the performance of native libraries such as vanilla-delegation or delegate.
 
