@@ -12,7 +12,13 @@ Light vanilla event delegation.
 
 ## How to use
 
-The scripts creates new methods on `Element` and `NodeList` prototypes with following signature.
+Install from npm.
+
+```
+$ npm install vanilla-delegation --save
+```
+
+The script creates new methods on `Element` and `NodeList` prototypes with following signatures.
 ```text
 Add:
 Element.prototype.addDelegateListener(eventType, selector, handler)
