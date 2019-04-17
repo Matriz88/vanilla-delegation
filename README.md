@@ -9,6 +9,7 @@ Light vanilla event delegation.
 * [Remove listener](#remove-listener)
 * [How listener delegation works](/extras/how-delegation-lookup-works.md) :arrow_upper_right:
 * [Performance tests](/extras/performance-test.md) :arrow_upper_right:
+* [Handler function details](#handler-function)
 
 ## How to use
 
@@ -21,17 +22,18 @@ $ npm install vanilla-delegation --save
 The script creates new methods on `Element` and `NodeList` prototypes with following signatures.
 ```text
 Add:
-Element.prototype.addDelegateListener(eventType, selector, handler)
-NodeList.prototype.addDelegateListener(eventType, selector, handler)
+Element.prototype.addDelegateListener(eventType, selector, handler, useCapture = false)
+NodeList.prototype.addDelegateListener(eventType, selector, handler, useCapture = false)
 
 Remove:
-Element.prototype.removeDelegateListener(eventType, selector, handler)
+Element.prototype.removeDelegateListener(eventType, selector, handler, useCapture = false)
 ```
 
-- **eventType**: [string] event type, for example "click", "focus", etc...
+- **eventType**: [string] A case-sensitive string representing the event type to listen for.
 - **selector**: [string] css child selector, must be a child of Element.
 - **handler**: [function] callback function, original event obj is passed as argument ([more details here](#handler-function)).<br />
-Be sure to pass a named function so you can remove it with `removeDelegateListener()` if needed. In case you're using uglify-js be sure to set `keep_fnames: true` in your `uglifyOptions` ([more details here](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#uglifyoptions))
+Be sure to pass a named function so you can remove it with `removeDelegateListener()` if needed. Be aware in case you're using a minifier like uglify-js be sure to set `keep_fnames: true` in your `uglifyOptions` ([more details here](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#uglifyoptions))
+- **useCapture**: [boolean] native useCapture parameter (default `false`). See [here](https://developer.mozilla.org/it/docs/Web/API/Element/addEventListener) for more details.
 
 ## Add listener
 
@@ -70,14 +72,14 @@ div.removeDelegateListener('click', 'a', handlerFn);
 
 `removeDelegateListener()` can be used on single Element nodes only
 
----
-
-#### Handler function
+## Handler function
 `Event` is passed to handler function as argument.
 
 `this` is the element matching `selector`.
 
 `event.delegateTarget` is Element to which the event was originally attached (jQuery-like)
+
+---
 
 ### Polyfill (IE9+ support)
 
