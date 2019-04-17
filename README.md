@@ -22,11 +22,11 @@ $ npm install vanilla-delegation --save
 The script creates new methods on `Element` and `NodeList` prototypes with following signatures.
 ```text
 Add:
-Element.prototype.addDelegateListener(eventType, selector, handler, useCapture)
-NodeList.prototype.addDelegateListener(eventType, selector, handler, useCapture)
+Element.prototype.addDelegateListener(eventType, selector, handler, useCapture = false)
+NodeList.prototype.addDelegateListener(eventType, selector, handler, useCapture = false)
 
 Remove:
-Element.prototype.removeDelegateListener(eventType, selector, handler, useCapture)
+Element.prototype.removeDelegateListener(eventType, selector, handler, useCapture = false)
 ```
 
 - **eventType**: [string] A case-sensitive string representing the event type to listen for.

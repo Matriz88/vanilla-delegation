@@ -20,7 +20,6 @@ const _createHandler = require('./src/createInternalHandler')
    * @param {string} selector
    * @param {function} handler
    * @param {boolean} useCapture
-   * @returns {undefined}
    */
   const _addDelegateListenerInternal = function (eventType, selector, handler, useCapture) {
     const handlerHash = _createKey([
@@ -56,7 +55,6 @@ const _createHandler = require('./src/createInternalHandler')
    * @param {string} selector
    * @param {function} handler
    * @param {boolean} useCapture
-   * @returns {undefined}
    */
   const addDelegateListener = function (eventType, selector, handler, useCapture = false) {
     if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function') {
@@ -89,7 +87,7 @@ const _createHandler = require('./src/createInternalHandler')
    */
   const removeDelegateListener = function (eventType, selector, handler, useCapture = false) {
     if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
-      console.warn('Cannot remove event. Wrong arguments types');
+      console.warn('Cannot remove event. Wrong arguments types or handler is anonymous. Cannot unbind anonymous functions.');
       return
     }
 

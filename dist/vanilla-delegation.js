@@ -109,7 +109,6 @@ var _createHandler = __webpack_require__(1);
    * @param {string} selector
    * @param {function} handler
    * @param {boolean} useCapture
-   * @returns {undefined}
    */
 
 
@@ -137,7 +136,6 @@ var _createHandler = __webpack_require__(1);
    * @param {string} selector
    * @param {function} handler
    * @param {boolean} useCapture
-   * @returns {undefined}
    */
 
 
@@ -180,7 +178,7 @@ var _createHandler = __webpack_require__(1);
     var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
     if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
-      console.warn('Cannot remove event. Wrong arguments types');
+      console.warn('Cannot remove event. Wrong arguments types or handler is anonymous. Cannot unbind anonymous functions.');
       return;
     }
 

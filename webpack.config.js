@@ -1,5 +1,5 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 
@@ -48,17 +48,10 @@ const delegationConfig = webpackMerge(
     ],
     optimization: {
       minimizer: [
-        new UglifyJsPlugin({
+        new TerserPlugin({
           include: /\.min\.js$/,
-          uglifyOptions: {
-            mangle: {
-              reserved: [
-                'eventType',
-                'selector',
-                'handler',
-                'useCapture'
-              ]
-            }
+          terserOptions: {
+            keep_fargs : true
           }
         })
       ]
