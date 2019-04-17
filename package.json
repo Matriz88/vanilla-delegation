@@ -1,12 +1,12 @@
 {
   "name": "vanilla-delegation",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Light vanilla event delegation.",
   "main": "dist/vanilla-delegation.min.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
     "build:dev": "webpack --config webpack.dev.js --mode development",
-    "version": "npm run build && npm --no-git-tag-version version"
+    "versioning": "npm run build && npm --no-git-tag-version version"
   },
   "repository": {
     "type": "git",
