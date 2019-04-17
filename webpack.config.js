@@ -55,7 +55,8 @@ const delegationConfig = webpackMerge(
               reserved: [
                 'eventType',
                 'selector',
-                'handler'
+                'handler',
+                'useCapture'
               ]
             }
           }

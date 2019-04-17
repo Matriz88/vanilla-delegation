@@ -125,35 +125,39 @@ var _createHandler = __webpack_require__(2);
 (function () {
   /**
    * in case string alteration needed in the future
-   * @param {string} text
+   * @param {Array} text
    * @returns {string}
    */
   var _createKey = function _createKey(text) {
-    return text;
+    return text.join('');
+  };
+
+  var isValidString = function isValidString(eventType) {
+    return typeof eventType === 'string' && eventType !== '';
   };
   /**
    * _addDelegateListenerInternal
    * @param {string} eventType
    * @param {string} selector
    * @param {function} handler
-   * @returns {boolean}
+   * @param {boolean} useCapture
+   * @returns {undefined}
    */
 
 
-  var _addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler) {
-    if (this.delegatedListenersList && handler.name in this.delegatedListenersList) {
-      console.warn('Cannot bind event. Handler and selector already registered');
-      return false;
+  var _addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler, useCapture) {
+    var handlerHash = _createKey([handler.name, selector, useCapture]);
+
+    if (this.delegatedListenersList && handlerHash in this.delegatedListenersList) {
+      console.warn('Cannot bind event. A listener with same arguments is already registered. ' + 'If you need to register multiple listeners with same arguments consider to pass an anonymous function as handler, ' + 'but be aware that you won\'t be able to remove the listener in the future.');
+      return;
     }
 
     var internalHandler = _createHandler(this, selector, handler);
 
-    this.addEventListener(eventType, internalHandler, false);
+    this.addEventListener(eventType, internalHandler, useCapture);
     if (!this.delegatedListenersList) this.delegatedListenersList = [];
-    if (handler.name === '') return true;
-
-    var handlerHash = _createKey(handler.name + selector);
-
+    if (handler.name === '') return;
     this.delegatedListenersList[handlerHash] = {
       eventType: eventType,
       internalHandler: internalHandler
@@ -164,49 +168,55 @@ var _createHandler = __webpack_require__(2);
    * @param {string} eventType
    * @param {string} selector
    * @param {function} handler
+   * @param {boolean} useCapture
+   * @returns {undefined}
    */
 
 
   var addDelegateListener = function addDelegateListener(eventType, selector, handler) {
-    if (typeof eventType !== 'string' || typeof selector !== 'string' || typeof handler !== 'function') {
+    var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+    if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function') {
       console.warn('Cannot bind event. Wrong arguments types');
-      return false;
+      return;
     }
 
     if (this instanceof NodeList) {
       var length = this.length;
 
       for (var i = 0; i < length; ++i) {
-        _addDelegateListenerInternal.call(this[i], eventType, selector, handler);
+        _addDelegateListenerInternal.call(this[i], eventType, selector, handler, useCapture);
       }
 
-      return true;
+      return;
     }
 
     if (this instanceof Element) {
-      _addDelegateListenerInternal.call(this, eventType, selector, handler);
+      _addDelegateListenerInternal.call(this, eventType, selector, handler, useCapture);
 
-      return true;
+      return;
     }
 
     console.warn('Cannot bind event on non-Element objects');
-    return false;
   };
   /**
    *
    * @param {string} eventType
    * @param {string} selector
    * @param {function} handler
+   * @param {boolean} useCapture
    */
 
 
   var removeDelegateListener = function removeDelegateListener(eventType, selector, handler) {
-    if (typeof eventType !== 'string' || typeof selector !== 'string' || typeof handler !== 'function' || handler.name === '') {
+    var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+    if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
       console.warn('Cannot remove event. Wrong arguments types');
       return;
     }
 
-    var key = _createKey(handler.name + selector);
+    var key = _createKey([handler.name, selector, useCapture]);
 
     if (this.delegatedListenersList && key in this.delegatedListenersList) {
       this.removeEventListener(this.delegatedListenersList[key].eventType, this.delegatedListenersList[key].internalHandler, false);
