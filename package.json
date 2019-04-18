@@ -1,7 +1,7 @@
 {
   "name": "vanilla-delegation",
   "version": "2.3.2",
-  "description": "Light vanilla event delegation.",
+  "description": "Lightweight vanilla event delegation.",
   "main": "dist/vanilla-delegation.min.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
@@ -12,12 +12,24 @@
     "type": "git",
     "url": "https://github.com/Matriz88/event-delegation"
   },
+  "bugs": {
+    "url": "https://github.com/Matriz88/vanilla-delegation/issues"
+  },
   "keywords": [
     "event-delegation",
-    "vanillajs"
+    "event",
+    "delegation",
+    "vanilla",
+    "vanillajs",
+    "vanilla-javascript",
+    "performance",
+    "event-listener",
+    "delegated-events",
+    "no-jquery"
   ],
   "author": "Matteo Rizzatti",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
