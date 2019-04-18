@@ -1,5 +1,5 @@
 require('../../../vanilla-delegation');
-const delegate = require('delegate');
+// const delegate = require('delegate'); //npm install delegate -D
 
 (function () {
   const prepareDom = function () {

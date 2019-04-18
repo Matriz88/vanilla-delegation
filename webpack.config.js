@@ -37,9 +37,6 @@ const delegationConfig = webpackMerge(
           test: /\.js$/,
           exclude: /node_modules|dist/,
           loader: 'eslint-loader',
-          options: {
-            fix: true
-          }
         }
       ]
     },
@@ -51,7 +48,7 @@ const delegationConfig = webpackMerge(
         new TerserPlugin({
           include: /\.min\.js$/,
           terserOptions: {
-            keep_fargs : true
+            keep_fargs: true
           }
         })
       ]
