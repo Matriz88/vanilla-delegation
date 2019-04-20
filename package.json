@@ -4,9 +4,10 @@
   "description": "Lightweight vanilla event delegation.",
   "main": "dist/vanilla-delegation.min.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js --mode production",
+    "build": "npm run test && webpack --config webpack.config.js --mode production",
     "build:dev": "webpack --config webpack.dev.js --mode development",
-    "versioning": "npm run build && npm --no-git-tag-version version"
+    "versioning": "npm run build && npm --no-git-tag-version version",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "clean-webpack-plugin": "^2.0.1",
     "eslint": "^5.16.0",
     "eslint-loader": "^2.1.2",
+    "jest": "^24.7.1",
     "terser-webpack-plugin": "^1.2.3",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
@@ -45,5 +47,6 @@
   "browserslist": [
     "last 2 versions",
     "ie >= 11"
-  ]
+  ],
+  "jest": {}
 }

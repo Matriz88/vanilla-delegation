@@ -4,6 +4,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 
 const config = {
+  stats: {
+    all: false,
+    modules: true,
+    errors: true,
+    warnings: true,
+    colors: true,
+  },
   module: {
     rules: [
       {
@@ -17,7 +24,7 @@ const config = {
         }
       }
     ]
-  },
+  }
 };
 
 const delegationConfig = webpackMerge(

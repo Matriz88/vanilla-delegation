@@ -241,7 +241,7 @@ var _getMatchedElement = __webpack_require__(3);
 
 
 var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
-  return function (selector, handler) {
+  return function (selector, handler, event) {
     var matchedElement = _getMatchedElement(this, event.target, selector);
 
     if (matchedElement) {
@@ -281,7 +281,7 @@ var getMatchedElement = function getMatchedElement(attachedElement, element, sel
     if (el.matches(selector)) return el;
   }
 
-  return attachedElement.matches(selector) ? attachedElement : false;
+  return attachedElement.nodeType === ELEMENT_NODE && attachedElement.matches(selector) ? attachedElement : false;
 };
 
 module.exports = getMatchedElement;

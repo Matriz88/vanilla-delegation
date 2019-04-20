@@ -8,7 +8,7 @@ const _getMatchedElement = require('./getMatchedElement');
  */
 const createInternalHandler = function (attachedElement, selector, handler) {
 
-  return function (selector, handler) {
+  return function (selector, handler, event) {
 
     let matchedElement = _getMatchedElement(this, event.target, selector);
 

@@ -20,7 +20,7 @@ const getMatchedElement = function (attachedElement, element, selector) {
     if (el.matches(selector)) return el;
   }
 
-  return attachedElement.matches(selector) ? attachedElement : false;
+  return attachedElement.nodeType === ELEMENT_NODE && attachedElement.matches(selector) ? attachedElement : false;
 };
 
 module.exports = getMatchedElement;
