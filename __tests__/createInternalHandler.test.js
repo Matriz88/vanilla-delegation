@@ -6,7 +6,7 @@ const _sut = require('../src/utils/_createInternalHandler');
 jest.mock('../src/utils/_getMatchedElement');
 
 describe('_createInternalHandler test', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     document.body.innerHTML =
       `
     <div>

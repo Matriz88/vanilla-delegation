@@ -1,7 +1,7 @@
 const _sut = require('../src/utils/_getMatchedElement');
 
 describe('_getMatchedElement test', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     document.body.innerHTML =
       `
     <div>

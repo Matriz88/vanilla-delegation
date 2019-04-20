@@ -2,7 +2,7 @@
 const _sut = require('../src/removeDelegateListener');
 
 describe('removeDelegateListener test', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     document.body.innerHTML =
       `
     <div>
