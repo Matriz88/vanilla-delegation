@@ -1,6 +1,6 @@
 # Vanilla-delegation
 
-![npm](https://img.shields.io/npm/v/vanilla-delegation.svg?style=flat-square) ![NPM](https://img.shields.io/npm/l/vanilla-delegation.svg?style=flat-square)
+[![npm version](https://badge.fury.io/js/vanilla-delegation.svg)](https://badge.fury.io/js/vanilla-delegation) [![Build Status](https://travis-ci.org/Matriz88/vanilla-delegation.svg?branch=master)](https://travis-ci.org/Matriz88/vanilla-delegation)
 
 Light vanilla event delegation.
 
