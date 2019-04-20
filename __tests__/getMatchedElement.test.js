@@ -1,6 +1,6 @@
-const _getMatchedElement = require('../src/getMatchedElement');
+const _sut = require('../src/utils/_getMatchedElement');
 
-describe('getMatchedElement test', () => {
+describe('_getMatchedElement test', () => {
   beforeAll(() => {
     document.body.innerHTML =
       `
@@ -17,19 +17,21 @@ describe('getMatchedElement test', () => {
     const element = document.querySelector('a');
     const selector = 'section';
 
-    let result = _getMatchedElement(attachedElement, element, selector);
-    expect(result).
-      toBeFalsy();
+    let result = _sut(attachedElement, element, selector);
+
+    // asserts
+    expect(result).toBeFalsy();
   });
 
-  test('matching found, elemnt found returned', () => {
+  test('matching found, element found returned', () => {
     const attachedElement = document.querySelector('div');
     const element = document.querySelector('span');
     const selector = 'a';
 
-    let result = _getMatchedElement(attachedElement, element, selector);
-    expect(result).
-      toEqual(document.querySelector('a'));
+    let result = _sut(attachedElement, element, selector);
+
+    // asserts
+    expect(result).toEqual(document.querySelector('a'));
   });
 
   test('matching not found, document is attachedElement, return false', () => {
@@ -37,8 +39,9 @@ describe('getMatchedElement test', () => {
     const element = document.querySelector('span');
     const selector = 'section';
 
-    let result = _getMatchedElement(attachedElement, element, selector);
-    expect(result).
-      toBeFalsy();
+    let result = _sut(attachedElement, element, selector);
+
+    // asserts
+    expect(result).toBeFalsy();
   });
 });

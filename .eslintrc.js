@@ -54,7 +54,7 @@ module.exports = {
     'curly': 'off',
     'default-case': 'error',
     'dot-location': 'error',
-    'dot-notation': 'error',
+    'dot-notation': 'off',
     'eol-last': 'error',
     'eqeqeq': 'error',
     'func-call-spacing': 'error',
