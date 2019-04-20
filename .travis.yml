@@ -5,7 +5,7 @@ node_js:
 branches:
   only:
     - master
-	- /^feature-.*$/
+    - /^feature\/.*$/
 cache:
   directories:
     - node_modules
