@@ -1,4 +1,4 @@
-const _getMatchedElement = require('./getMatchedElement');
+const _getMatchedElement = require('./_getMatchedElement');
 
 /**
  * create internal handler
@@ -6,7 +6,7 @@ const _getMatchedElement = require('./getMatchedElement');
  * @param selector
  * @param handler
  */
-const createInternalHandler = function (attachedElement, selector, handler) {
+const _createInternalHandler = function (attachedElement, selector, handler) {
 
   return function (selector, handler, event) {
 
@@ -21,4 +21,4 @@ const createInternalHandler = function (attachedElement, selector, handler) {
   }.bind(attachedElement, selector, handler);
 };
 
-module.exports = createInternalHandler;
+module.exports = _createInternalHandler;
