@@ -68,7 +68,7 @@ describe('addDelegateListener test', () => {
     expect(elMock.addEventListener.mock.calls.length).toBe(0);
   });
 
-  test('correct arguments, listener added to NodeList', () => {
+  test('correct arguments, listener added to NodeList with querySelectorAll', () => {
     const elMock = document.querySelectorAll('div');
     const handlerMock = function handlerMock () {
       return true;
@@ -78,6 +78,18 @@ describe('addDelegateListener test', () => {
     _sut.call(elMock, 'click', 'a', handlerMock, false);
     elMock.forEach((el) => expect('handlerMockafalse' in el.delegatedListenersList).toBeTruthy());
     elMock.forEach((el) => expect(el.addEventListener.mock.calls.length).toBe(1));
+  });
+
+  test('correct arguments, listener added to HTMLCollection with getElementsByTagName', () => {
+    const elMock = document.getElementsByTagName('div');
+    const handlerMock = function handlerMock () {
+      return true;
+    };
+    [...elMock].forEach((el) => el.addEventListener = jest.fn(() => true));
+
+    _sut.call(elMock, 'click', 'a', handlerMock, false);
+    [...elMock].forEach((el) => expect('handlerMockafalse' in el.delegatedListenersList).toBeTruthy());
+    [...elMock].forEach((el) => expect(el.addEventListener.mock.calls.length).toBe(1));
   });
 
 });

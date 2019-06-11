@@ -49,7 +49,7 @@ const addDelegateListener = function addDelegateListener (eventType, selector, h
     return;
   }
 
-  if (this instanceof NodeList) {
+  if (this instanceof NodeList || this instanceof HTMLCollection) {
     const length = this.length;
     for (let i = 0; i < length; ++i) {
       _addDelegateListenerInternal.call(this[i], eventType, selector, handler, useCapture)

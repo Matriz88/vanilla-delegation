@@ -49,14 +49,14 @@ body.addDelegateListener('click', 'a', function handlerFn(event) {
     alert('link clicked!');
 });
 ```
-Also can be used with `querySelectorAll`
+Also can be used with `querySelectorAll`, `getElementsByClassName`, `getElementsByTagName`, `getElementsByTagNameNS`
 ```javascript
 require('vanilla-delegation.js');
 
 // get multiple elements
 const div = document.querySelectorAll('div');
 
-// bind listener with delegation on every element in NodeList
+// bind listener with delegation on every element in NodeList (or HTMLCollection)
 div.addDelegateListener('click', 'a', function handlerFn(event) {
     event.preventDefault();
     alert('link clicked!');

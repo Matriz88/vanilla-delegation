@@ -156,6 +156,7 @@ var removeDelegateListener = __webpack_require__(6);
   window.Element.prototype.addDelegateListener = addDelegateListener;
   window.Element.prototype.removeDelegateListener = removeDelegateListener;
   window.NodeList.prototype.addDelegateListener = addDelegateListener;
+  window.HTMLCollection.prototype.addDelegateListener = addDelegateListener;
 })();
 
 /***/ }),
@@ -211,7 +212,7 @@ var addDelegateListener = function addDelegateListener(eventType, selector, hand
     return;
   }
 
-  if (this instanceof NodeList) {
+  if (this instanceof NodeList || this instanceof HTMLCollection) {
     var length = this.length;
 
     for (var i = 0; i < length; ++i) {
