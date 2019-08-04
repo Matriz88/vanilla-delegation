@@ -1,6 +1,6 @@
 # Vanilla-delegation
 
-[![npm version](https://badge.fury.io/js/vanilla-delegation.svg)](https://badge.fury.io/js/vanilla-delegation) [![Build Status](https://travis-ci.org/Matriz88/vanilla-delegation.svg?branch=master)](https://travis-ci.org/Matriz88/vanilla-delegation)
+[![npm version](https://badge.fury.io/js/vanilla-delegation.svg)](https://badge.fury.io/js/vanilla-delegation) [![Build Status](https://travis-ci.org/Matriz88/vanilla-delegation.svg?branch=master)](https://travis-ci.org/Matriz88/vanilla-delegation) ![David](https://img.shields.io/david/Matriz88/vanilla-delegation) ![NPM](https://img.shields.io/npm/l/vanilla-delegation)
 
 Light vanilla event delegation.
 
@@ -20,13 +20,13 @@ $ npm install vanilla-delegation --save
 ```
 
 The script creates new methods on `Element` and `NodeList` prototypes with following signatures.
-```text
-Add:
-Element.prototype.addDelegateListener(eventType, selector, handler, useCapture = false)
-NodeList.prototype.addDelegateListener(eventType, selector, handler, useCapture = false)
+```javascript
+// Add
+Element.addDelegateListener(eventType, selector, handler, useCapture = false)
+NodeList.addDelegateListener(eventType, selector, handler, useCapture = false)
 
-Remove:
-Element.prototype.removeDelegateListener(eventType, selector, handler, useCapture = false)
+// Remove
+Element.removeDelegateListener(eventType, selector, handler, useCapture = false)
 ```
 
 - **eventType**: [string] A case-sensitive string representing the event type to listen for.
