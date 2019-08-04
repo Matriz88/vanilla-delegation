@@ -89,7 +89,7 @@ div.removeDelegateListener('click', 'a', handlerFn);
 
 `this` is the element matching `selector`.
 
-`event.delegateTarget` is Element to which the event was originally attached (jQuery-like)
+`event.delegateTarget` is the Element to which the event was originally attached (jQuery-like)
 
 ---
 
