@@ -19,11 +19,12 @@ Install from npm.
 $ npm install vanilla-delegation --save
 ```
 
-The script creates new methods on `Element` and `NodeList` prototypes with following signatures.
+The script creates new methods on `Element`, `NodeList` and `HTMLCollection` prototypes with following signatures.
 ```javascript
 // Add
 Element.addDelegateListener(eventType, selector, handler, useCapture = false)
 NodeList.addDelegateListener(eventType, selector, handler, useCapture = false)
+HTMLCollection.addDelegateListener(eventType, selector, handler, useCapture = false)
 
 // Remove
 Element.removeDelegateListener(eventType, selector, handler, useCapture = false)
