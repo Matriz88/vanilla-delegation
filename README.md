@@ -4,22 +4,37 @@
 
 Light vanilla event delegation.
 
+* [How to install](#how-to-install)
 * [How to use](#how-to-use)
-* [Add listener](#add-listener)
-* [Remove listener](#remove-listener)
+   * [Add listener](#add-listener)
+   * [Remove listener](#remove-listener)
+* [Handler function details](#handler-function)
+* [Global polyfill](#global-polyfill-ie9-support)
+
+Extras
 * [How listener delegation works](/extras/how-delegation-lookup-works.md) :arrow_upper_right:
 * [Performance tests](/extras/performance-test.md) :arrow_upper_right:
-* [Handler function details](#handler-function)
 
-## How to use
+## How to install
 
-Install from npm.
+Install from npm and require it in your script.
 
 ```
 $ npm install vanilla-delegation --save
 ```
-
-The script creates new methods on `Element`, `NodeList` and `HTMLCollection` prototypes with following signatures.
+```javascript
+require('vanilla-delegation');
+```
+or import the script in the head of your html document:
+```html
+<head>
+  ...
+  <script rel="https://unpkg.com/vanilla-delegation/dist/vanilla-delegation.min.js" />
+  ...
+</head>
+```
+## How to use
+The script implements new methods on `Element`, `NodeList` and `HTMLCollection`.
 ```javascript
 // Add
 Element.addDelegateListener(eventType, selector, handler, useCapture = false)
@@ -36,11 +51,9 @@ Element.removeDelegateListener(eventType, selector, handler, useCapture = false)
 Be sure to pass a named function so you can remove it with `removeDelegateListener()` if needed. Be aware in case you're using a minifier like uglify-js be sure to set `keep_fnames: true` in your `uglifyOptions` ([more details here](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#uglifyoptions))
 - **useCapture**: [boolean] native useCapture parameter (default `false`). See [here](https://developer.mozilla.org/it/docs/Web/API/Element/addEventListener) for more details.
 
-## Add listener
+### Add listener
 
 ```javascript
-require('vanilla-delegation.js');
-
 // get single element
 const body = document.querySelector('body');
 
@@ -52,8 +65,6 @@ body.addDelegateListener('click', 'a', function handlerFn(event) {
 ```
 Also can be used with `querySelectorAll`, `getElementsByClassName`, `getElementsByTagName`, `getElementsByTagNameNS`
 ```javascript
-require('vanilla-delegation.js');
-
 // get multiple elements
 const div = document.querySelectorAll('div');
 
@@ -64,7 +75,7 @@ div.addDelegateListener('click', 'a', function handlerFn(event) {
 });
 ```
 
-## Remove listener
+### Remove listener
 In order to remove a listener be sure to pass a named function to `removeDelegateListener()`
 ```javascript
 const div = document.querySelector('div');
@@ -82,9 +93,9 @@ div.removeDelegateListener('click', 'a', handlerFn);
 
 ---
 
-### Polyfill (IE9+ support)
+### Global polyfill (IE9+ support)
 
-A global polyfill is set by default:
+A global polyfill is included by default with vanilla-delegation:
 
 See https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
 
