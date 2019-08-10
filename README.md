@@ -12,10 +12,12 @@ Light vanilla event delegation.
 * [Global polyfill](#global-polyfill-ie9-support)
 
 Extras
-* [How listener delegation works 📚](/extras/how-delegation-lookup-works.md)
-* [Performance tests 🏎️](/extras/performance-test.md)
-* [Tests coverage ✔️](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html)
-* [Github pages 📄](https://matriz88.github.io/vanilla-delegation/)
+* [📚 How listener delegation works](/extras/how-delegation-lookup-works.md)
+* [⚡ Performance tests](/extras/performance-test.md)
+* [✔️ Tests coverage](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html)
+* [📄 Github pages](https://matriz88.github.io/vanilla-delegation/)
+---
+<br />
 
 ## 🔧 How to install
 
