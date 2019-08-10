@@ -14,8 +14,8 @@ Light vanilla event delegation.
 Extras
 * [📚 How listener delegation works](/extras/how-delegation-lookup-works.md)
 * [⚡ Performance tests](/extras/performance-test.md)
-* [✔️ Tests coverage](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html)
-* [📄 Github pages](https://matriz88.github.io/vanilla-delegation/)
+* <a href="https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html" target="_blank">✔️ Tests coverage</a>
+* <a href="https://matriz88.github.io/vanilla-delegation/" target="_blank">📄 Github pages</a>
 
 ---
 
