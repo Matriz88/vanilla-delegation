@@ -25,13 +25,9 @@ $ npm install vanilla-delegation --save
 ```javascript
 require('vanilla-delegation');
 ```
-or import the script in the head of your html document:
+or import the script in your html document:
 ```html
-<head>
-  ...
-  <script rel="https://unpkg.com/vanilla-delegation/dist/vanilla-delegation.min.js" />
-  ...
-</head>
+<script rel="https://unpkg.com/vanilla-delegation/dist/vanilla-delegation.min.js" />
 ```
 ## How to use
 The script implements new methods on `Element`, `NodeList` and `HTMLCollection`.
