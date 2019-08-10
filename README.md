@@ -12,11 +12,12 @@ Light vanilla event delegation.
 * [Global polyfill](#global-polyfill-ie9-support)
 
 Extras
-* [How listener delegation works](/extras/how-delegation-lookup-works.md) ↗️
-* [Performance tests](/extras/performance-test.md) ↗️
-* [Tests coverage](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html) ↗️
+* [How listener delegation works 📚](/extras/how-delegation-lookup-works.md)
+* [Performance tests 🏎️](/extras/performance-test.md)
+* [Tests coverage ✔️](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html)
+* [Github pages 📄](https://matriz88.github.io/vanilla-delegation/)
 
-## How to install
+## 🔧 How to install
 
 Install from npm and require it in your script.
 
@@ -30,7 +31,7 @@ or import the script in your html document:
 ```html
 <script rel="https://unpkg.com/vanilla-delegation/dist/vanilla-delegation.min.js" />
 ```
-## How to use
+## ✏️ How to use
 The script implements new methods on `Element`, `NodeList` and `HTMLCollection`.
 ```javascript
 // Add
@@ -48,7 +49,7 @@ Element.removeDelegateListener(eventType, selector, handler, useCapture = false)
 Be sure to pass a named function so you can remove it with `removeDelegateListener()` if needed. Be aware in case you're using a minifier like uglify-js be sure to set `keep_fnames: true` in your `uglifyOptions` ([more details here](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#uglifyoptions))
 - **useCapture**: [boolean] native useCapture parameter (default `false`). See [here](https://developer.mozilla.org/it/docs/Web/API/Element/addEventListener) for more details.
 
-### Add listener
+### ➕ Add listener
 
 ```javascript
 // get single element
@@ -72,7 +73,7 @@ div.addDelegateListener('click', 'a', function handlerFn(event) {
 });
 ```
 
-### Remove listener
+### ➖ Remove listener
 In order to remove a listener be sure to pass a named function to `removeDelegateListener()`
 ```javascript
 const div = document.querySelector('div');
