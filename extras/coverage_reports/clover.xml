@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1565439055334" clover="3.2.0">
-  <project timestamp="1565439055334" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1565439689851" clover="3.2.0">
+  <project timestamp="1565439689851" name="All files">
+    <metrics statements="64" coveredstatements="63" conditionals="48" coveredconditionals="40" methods="9" coveredmethods="9" elements="121" coveredelements="112" complexity="0" loc="64" ncloc="64" packages="3" files="6" classes="6"/>
+    <package name="vanilla-delegation">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="vanilla-delegation.js" path="C:\git_projects\vanilla-delegation\vanilla-delegation.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="vanilla-delegation.src">
+      <metrics statements="36" coveredstatements="36" conditionals="31" coveredconditionals="27" methods="3" coveredmethods="3"/>
+      <file name="addDelegateListener.js" path="C:\git_projects\vanilla-delegation\src\addDelegateListener.js">
+        <metrics statements="26" coveredstatements="26" conditionals="20" coveredconditionals="17" methods="2" coveredmethods="2"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="18" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="29" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="33" count="6" type="stmt"/>
+        <line num="46" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="47" count="7" type="cond" truecount="5" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="52" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="60" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="61" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+      </file>
+      <file name="removeDelegateListener.js" path="C:\git_projects\vanilla-delegation\src\removeDelegateListener.js">
+        <metrics statements="10" coveredstatements="10" conditionals="11" coveredconditionals="10" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="10" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="11" count="2" type="cond" truecount="6" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="22" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="vanilla-delegation.src.utils">
+      <metrics statements="21" coveredstatements="20" conditionals="17" coveredconditionals="13" methods="5" coveredmethods="5"/>
+      <file name="_createInternalHandler.js" path="C:\git_projects\vanilla-delegation\src\utils\_createInternalHandler.js">
+        <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="8" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="15" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+      </file>
+      <file name="_getMatchedElement.js" path="C:\git_projects\vanilla-delegation\src\utils\_getMatchedElement.js">
+        <metrics statements="8" coveredstatements="7" conditionals="13" coveredconditionals="9" methods="1" coveredmethods="1"/>
+        <line num="5" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="19" count="3" type="cond" truecount="3" falsecount="0"/>
+        <line num="20" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="26" count="4" type="stmt"/>
+      </file>
+      <file name="utils.js" path="C:\git_projects\vanilla-delegation\src\utils\utils.js">
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="8" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="3" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
