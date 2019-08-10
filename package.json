@@ -48,5 +48,19 @@
     "last 2 versions",
     "ie >= 11"
   ],
-  "jest": {}
+  "jest": {
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageDirectory": "./extras/coverage_reports",
+    "coveragePathIgnorePatterns": [
+      "/node_modules",
+      "/extras/",
+      "/dist/"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!webpack*"
+    ]
+  }
 }
