@@ -16,8 +16,8 @@ Extras
 * [⚡ Performance tests](/extras/performance-test.md)
 * [✔️ Tests coverage](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html)
 * [📄 Github pages](https://matriz88.github.io/vanilla-delegation/)
+
 ---
-<br />
 
 ## 🔧 How to install
 
