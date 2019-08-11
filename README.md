@@ -4,18 +4,18 @@
 
 Light vanilla event delegation.
 
-* [How to install](#how-to-install)
-* [How to use](#how-to-use)
-   * [Add listener](#add-listener)
-   * [Remove listener](#remove-listener)
+* [How to install](#-how-to-install)
+* [How to use](#-how-to-use)
+   * [Add listener](#-add-listener)
+   * [Remove listener](#-remove-listener)
 * [Handler function details](#handler-function)
 * [Global polyfill](#global-polyfill-ie9-support)
 
 Extras
 * [📚 How listener delegation works](/extras/how-delegation-lookup-works.md)
 * [⚡ Performance tests](/extras/performance-test.md)
-* <a href="https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html" target="_blank">✔️ Tests coverage</a>
-* <a href="https://matriz88.github.io/vanilla-delegation/" target="_blank">📄 Github pages</a>
+* [✔️ Tests coverage](https://matriz88.github.io/vanilla-delegation/extras/coverage_reports/lcov-report/index.html)
+* [📄 Github pages](https://matriz88.github.io/vanilla-delegation/)
 
 ---
 
