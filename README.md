@@ -5,7 +5,7 @@
 Light vanilla event delegation.
 
 * [How to install](#-how-to-install)
-* [How to use](#-how-to-use)
+* [How to use](#️-how-to-use)
    * [Add listener](#-add-listener)
    * [Remove listener](#-remove-listener)
 * [Handler function details](#handler-function)
