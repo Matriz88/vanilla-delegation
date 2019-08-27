@@ -3,17 +3,16 @@ name: CI
 on:
   push:
     branches:
-    - master
-    - feature
+      - master
+      - 'feature/*'
+      - '!refs/pull/*'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
     - name: Install
       run: npm install
-    - name: Build
+    - name: Build & tests
       run: npm run build
