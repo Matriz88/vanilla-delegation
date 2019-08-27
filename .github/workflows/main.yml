@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+    - feature/*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install
+      run: npm install
+    - name: Build
+      run: npm run build
