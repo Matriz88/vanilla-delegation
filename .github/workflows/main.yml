@@ -1,19 +1,13 @@
-name: CI
+name: Build & Tests
 
-on:
-  push:
-    branches:
-    - master
-    - feature/*
+on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
     - name: Install
       run: npm install
-    - name: Build
+    - name: Build & tests
       run: npm run build
