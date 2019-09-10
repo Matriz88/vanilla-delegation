@@ -1,0 +1,22 @@
+name: Build & Tests
+
+<<<<<<< HEAD
+on: [push, pull_request]
+=======
+on:
+  push:
+    branches:
+      - master
+      - 'feature/*'
+      - '!refs/pull/*'
+>>>>>>> 6068ccd23eb62159996b29393348054234a736ef
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install
+      run: npm install
+    - name: Build & tests
+      run: npm run build
