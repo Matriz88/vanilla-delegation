@@ -1,11 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - master
-      - /^feature\/.*$/
-      - '!refs/pull/*'
+on: [push, pull_request]
 
 jobs:
   build:
