@@ -102,3 +102,4 @@ See https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
 ### Support
 - (latest 2 versions)
 - IE 11
+
