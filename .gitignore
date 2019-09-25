@@ -2,3 +2,4 @@
 /node_modules
 *.map
 *.orig
+/extras/coverage_reports/
