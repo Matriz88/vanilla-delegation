@@ -1,7 +1,7 @@
 # Vanilla-delegation - [![npm version](https://badge.fury.io/js/vanilla-delegation.svg)](https://badge.fury.io/js/vanilla-delegation)
 
+![](https://github.com/Matriz88/vanilla-delegation/workflows/Build%20&%20Tests/badge.svg) [![Build Status](https://travis-ci.org/Matriz88/vanilla-delegation.svg?branch=master)](https://travis-ci.org/Matriz88/vanilla-delegation) ![David](https://img.shields.io/david/Matriz88/vanilla-delegation) ![GitHub file size in bytes](https://img.shields.io/github/size/Matriz88/vanilla-delegation/dist/vanilla-delegation.min.js) ![NPM](https://img.shields.io/npm/l/vanilla-delegation)
 
-![Github Action status](https://github.com/Matriz88/vanilla-delegation/workflows/Build%20%26%20Tests/badge.svg) [![Trevis Build Status](https://travis-ci.org/Matriz88/vanilla-delegation.svg?branch=master)](https://travis-ci.org/Matriz88/vanilla-delegation) ![dependencies](https://img.shields.io/david/Matriz88/vanilla-delegation) ![license](https://img.shields.io/npm/l/vanilla-delegation) ![GitHub file size in bytes](https://img.shields.io/github/size/Matriz88/vanilla-delegation/dist/vanilla-delegation.min.js)
 
 Light vanilla event delegation.
 
