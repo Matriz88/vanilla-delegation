@@ -1,5 +1,5 @@
-const {_isValidString, _createKey} = require('./utils/utils');
-const _createInternalHandler = require('./utils/_createInternalHandler');
+const { isValidString, createKey } = require('./utils/utils');
+const createInternalHandler = require('./utils/_createInternalHandler');
 
 /**
  * _addDelegateListenerInternal
@@ -8,21 +8,21 @@ const _createInternalHandler = require('./utils/_createInternalHandler');
  * @param {function} handler
  * @param {boolean} useCapture
  */
-const _addDelegateListenerInternal = function _addDelegateListenerInternal (eventType, selector, handler, useCapture) {
-  const handlerHash = _createKey([
+const addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler, useCapture) {
+  const handlerHash = createKey([
     handler.name,
     selector,
-    useCapture
+    useCapture,
   ]);
 
   if (this.delegatedListenersList && handlerHash in this.delegatedListenersList) {
-    console.warn('Cannot bind event. A listener with same arguments is already registered. ' +
-      'If you need to register multiple listeners with same arguments consider to pass an anonymous function as handler, ' +
-      'but be aware that you won\'t be able to remove the listener in the future.');
+    console.warn('Cannot bind event. A listener with same arguments is already registered. '
+      + 'If you need to register multiple listeners with same arguments consider to pass an anonymous function as handler, '
+      + 'but be aware that you won\'t be able to remove the listener in the future.');
     return;
   }
 
-  let internalHandler = _createInternalHandler(this, selector, handler);
+  const internalHandler = createInternalHandler(this, selector, handler);
 
   this.addEventListener(eventType, internalHandler, useCapture);
 
@@ -43,22 +43,27 @@ const _addDelegateListenerInternal = function _addDelegateListenerInternal (even
  * @param {function} handler
  * @param {boolean} useCapture
  */
-const addDelegateListener = function addDelegateListener (eventType, selector, handler, useCapture = false) {
-  if (!_isValidString(eventType) || !_isValidString(selector) || typeof handler !== 'function') {
+const addDelegateListener = function addDelegateListener(
+  eventType,
+  selector,
+  handler,
+  useCapture = false,
+) {
+  if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function') {
     console.warn('Cannot bind event. Wrong arguments types');
     return;
   }
 
   if (this instanceof NodeList || this instanceof HTMLCollection) {
-    const length = this.length;
-    for (let i = 0; i < length; ++i) {
-      _addDelegateListenerInternal.call(this[i], eventType, selector, handler, useCapture)
+    const { length } = this;
+    for (let i = 0; i < length; i += 1) {
+      addDelegateListenerInternal.call(this[i], eventType, selector, handler, useCapture);
     }
     return;
   }
 
   if (this instanceof Element) {
-    _addDelegateListenerInternal.call(this, eventType, selector, handler, useCapture);
+    addDelegateListenerInternal.call(this, eventType, selector, handler, useCapture);
     return;
   }
 

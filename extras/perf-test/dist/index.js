@@ -93,7 +93,7 @@
  * @param {Array} text
  * @returns {string}
  */
-var _createKey = function _createKey(text) {
+var createKey = function createKey(text) {
   return text.join('');
 };
 /**
@@ -103,13 +103,13 @@ var _createKey = function _createKey(text) {
  */
 
 
-var _isValidString = function _isValidString(eventType) {
+var isValidString = function isValidString(eventType) {
   return typeof eventType === 'string' && eventType !== '';
 };
 
 module.exports = {
-  _createKey: _createKey,
-  _isValidString: _isValidString
+  createKey: createKey,
+  isValidString: isValidString
 };
 
 /***/ }),
@@ -177,7 +177,7 @@ var addDelegateListener = __webpack_require__(3);
 
 var removeDelegateListener = __webpack_require__(6);
 
-(function () {
+(function exportVanillaDelegation() {
   window.Element.prototype.addDelegateListener = addDelegateListener;
   window.Element.prototype.removeDelegateListener = removeDelegateListener;
   window.NodeList.prototype.addDelegateListener = addDelegateListener;
@@ -189,10 +189,10 @@ var removeDelegateListener = __webpack_require__(6);
 /***/ (function(module, exports, __webpack_require__) {
 
 var _require = __webpack_require__(0),
-    _isValidString = _require._isValidString,
-    _createKey = _require._createKey;
+    isValidString = _require.isValidString,
+    createKey = _require.createKey;
 
-var _createInternalHandler = __webpack_require__(4);
+var createInternalHandler = __webpack_require__(4);
 /**
  * _addDelegateListenerInternal
  * @param {string} eventType
@@ -202,16 +202,15 @@ var _createInternalHandler = __webpack_require__(4);
  */
 
 
-var _addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler, useCapture) {
-  var handlerHash = _createKey([handler.name, selector, useCapture]);
+var addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler, useCapture) {
+  var handlerHash = createKey([handler.name, selector, useCapture]);
 
   if (this.delegatedListenersList && handlerHash in this.delegatedListenersList) {
     console.warn('Cannot bind event. A listener with same arguments is already registered. ' + 'If you need to register multiple listeners with same arguments consider to pass an anonymous function as handler, ' + 'but be aware that you won\'t be able to remove the listener in the future.');
     return;
   }
 
-  var internalHandler = _createInternalHandler(this, selector, handler);
-
+  var internalHandler = createInternalHandler(this, selector, handler);
   this.addEventListener(eventType, internalHandler, useCapture);
   if (!this.delegatedListenersList) this.delegatedListenersList = [];
   if (handler.name === '') return;
@@ -232,7 +231,7 @@ var _addDelegateListenerInternal = function _addDelegateListenerInternal(eventTy
 var addDelegateListener = function addDelegateListener(eventType, selector, handler) {
   var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
-  if (!_isValidString(eventType) || !_isValidString(selector) || typeof handler !== 'function') {
+  if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function') {
     console.warn('Cannot bind event. Wrong arguments types');
     return;
   }
@@ -240,16 +239,15 @@ var addDelegateListener = function addDelegateListener(eventType, selector, hand
   if (this instanceof NodeList || this instanceof HTMLCollection) {
     var length = this.length;
 
-    for (var i = 0; i < length; ++i) {
-      _addDelegateListenerInternal.call(this[i], eventType, selector, handler, useCapture);
+    for (var i = 0; i < length; i += 1) {
+      addDelegateListenerInternal.call(this[i], eventType, selector, handler, useCapture);
     }
 
     return;
   }
 
   if (this instanceof Element) {
-    _addDelegateListenerInternal.call(this, eventType, selector, handler, useCapture);
-
+    addDelegateListenerInternal.call(this, eventType, selector, handler, useCapture);
     return;
   }
 
@@ -262,7 +260,7 @@ module.exports = addDelegateListener;
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _getMatchedElement = __webpack_require__(5);
+var getMatchedElement = __webpack_require__(5);
 /**
  * create internal handler
  * @param attachedElement
@@ -271,19 +269,19 @@ var _getMatchedElement = __webpack_require__(5);
  */
 
 
-var _createInternalHandler = function _createInternalHandler(attachedElement, selector, handler) {
-  return function (selector, handler, event) {
-    var matchedElement = _getMatchedElement(this, event.target, selector);
+var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
+  return function createInternalSubHandler(selectorInput, handlerInput, eventInput) {
+    matchedElement = getMatchedElement(this, eventInput.target, selectorInput);
 
     if (matchedElement) {
       // save Element to which the event was originally attached (jQuery-like)
-      event.delegateTarget = this;
-      handler.call(matchedElement, event);
+      eventInput.delegateTarget = this;
+      handlerInput.call(matchedElement, eventInput);
     }
   }.bind(attachedElement, selector, handler);
 };
 
-module.exports = _createInternalHandler;
+module.exports = createInternalHandler;
 
 /***/ }),
 /* 5 */
@@ -304,7 +302,7 @@ if (!Element.prototype.matches) {
  */
 
 
-var _getMatchedElement = function _getMatchedElement(attachedElement, element, selector) {
+var getMatchedElement = function getMatchedElement(attachedElement, element, selector) {
   // node.ELEMENT_NODE;
   var ELEMENT_NODE = 1;
 
@@ -315,15 +313,15 @@ var _getMatchedElement = function _getMatchedElement(attachedElement, element, s
   return attachedElement.nodeType === ELEMENT_NODE && attachedElement.matches(selector) ? attachedElement : false;
 };
 
-module.exports = _getMatchedElement;
+module.exports = getMatchedElement;
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var _require = __webpack_require__(0),
-    _isValidString = _require._isValidString,
-    _createKey = _require._createKey;
+    isValidString = _require.isValidString,
+    createKey = _require.createKey;
 /**
  *
  * @param {string} eventType
@@ -336,12 +334,12 @@ var _require = __webpack_require__(0),
 var removeDelegateListener = function removeDelegateListener(eventType, selector, handler) {
   var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
-  if (!_isValidString(eventType) || !_isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
+  if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
     console.warn('Cannot remove event. Wrong arguments types or handler is anonymous. Cannot unbind anonymous functions.');
     return;
   }
 
-  var key = _createKey([handler.name, selector, useCapture]);
+  var key = createKey([handler.name, selector, useCapture]);
 
   if (this.delegatedListenersList && key in this.delegatedListenersList) {
     this.removeEventListener(this.delegatedListenersList[key].eventType, this.delegatedListenersList[key].internalHandler, false);

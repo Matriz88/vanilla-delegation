@@ -1,9 +1,8 @@
-const _sut = require('../src/utils/_getMatchedElement');
+const sut = require('../src/utils/_getMatchedElement');
 
 describe('_getMatchedElement test', () => {
   beforeEach(() => {
-    document.body.innerHTML =
-      `
+    document.body.innerHTML = `
     <div>
       <a href="#">
         <span>text</span>
@@ -17,7 +16,7 @@ describe('_getMatchedElement test', () => {
     const element = document.querySelector('a');
     const selector = 'section';
 
-    let result = _sut(attachedElement, element, selector);
+    const result = sut(attachedElement, element, selector);
 
     // asserts
     expect(result).toBeFalsy();
@@ -28,7 +27,7 @@ describe('_getMatchedElement test', () => {
     const element = document.querySelector('span');
     const selector = 'a';
 
-    let result = _sut(attachedElement, element, selector);
+    const result = sut(attachedElement, element, selector);
 
     // asserts
     expect(result).toEqual(document.querySelector('a'));
@@ -39,7 +38,7 @@ describe('_getMatchedElement test', () => {
     const element = document.querySelector('span');
     const selector = 'section';
 
-    let result = _sut(attachedElement, element, selector);
+    const result = sut(attachedElement, element, selector);
 
     // asserts
     expect(result).toBeFalsy();

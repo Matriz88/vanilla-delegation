@@ -1,14 +1,13 @@
 /* eslint-disable no-magic-numbers,quotes */
-const _getMatchedElement = require('../src/utils/_getMatchedElement');
-const _sut = require('../src/utils/_createInternalHandler');
+const getMatchedElement = require('../src/utils/_getMatchedElement');
+const sut = require('../src/utils/_createInternalHandler');
 
 // mock
 jest.mock('../src/utils/_getMatchedElement');
 
 describe('_createInternalHandler test', () => {
   beforeEach(() => {
-    document.body.innerHTML =
-      `
+    document.body.innerHTML = `
     <div>
       <a href="#">
         <span>text</span>
@@ -23,12 +22,12 @@ describe('_createInternalHandler test', () => {
     const elementWithAttachedListener = document.querySelector('div');
     const elementTriggered = document.querySelector('span');
     const eventMock = {
-      'target': elementTriggered
+      target: elementTriggered,
     };
 
-    _getMatchedElement.mockReturnValue(elementMatchingSelector);
+    getMatchedElement.mockReturnValue(elementMatchingSelector);
     const myHandler = jest.fn(() => true);
-    const internalHandler = _sut(elementWithAttachedListener, selector, myHandler);
+    const internalHandler = sut(elementWithAttachedListener, selector, myHandler);
     internalHandler(eventMock);
 
     // asserts
@@ -42,12 +41,12 @@ describe('_createInternalHandler test', () => {
     const elementWithAttachedListener = document.querySelector('div');
     const elementTriggered = document.querySelector('span');
     const eventMock = {
-      'target': elementTriggered
+      target: elementTriggered,
     };
 
-    _getMatchedElement.mockReturnValue(false);
+    getMatchedElement.mockReturnValue(false);
     const myHandler = jest.fn(() => true);
-    const internalHandler = _sut(elementWithAttachedListener, selector, myHandler);
+    const internalHandler = sut(elementWithAttachedListener, selector, myHandler);
     internalHandler(eventMock);
 
     // asserts

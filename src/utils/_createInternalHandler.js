@@ -1,4 +1,4 @@
-const _getMatchedElement = require('./_getMatchedElement');
+const getMatchedElement = require('./_getMatchedElement');
 
 /**
  * create internal handler
@@ -6,19 +6,16 @@ const _getMatchedElement = require('./_getMatchedElement');
  * @param selector
  * @param handler
  */
-const _createInternalHandler = function (attachedElement, selector, handler) {
-
-  return function (selector, handler, event) {
-
-    let matchedElement = _getMatchedElement(this, event.target, selector);
+const createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
+  return function createInternalSubHandler(selectorInput, handlerInput, eventInput) {
+    matchedElement = getMatchedElement(this, eventInput.target, selectorInput);
 
     if (matchedElement) {
       // save Element to which the event was originally attached (jQuery-like)
-      event.delegateTarget = this;
-      handler.call(matchedElement, event);
-
+      eventInput.delegateTarget = this;
+      handlerInput.call(matchedElement, eventInput);
     }
   }.bind(attachedElement, selector, handler);
 };
 
-module.exports = _createInternalHandler;
+module.exports = createInternalHandler;

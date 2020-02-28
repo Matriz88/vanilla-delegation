@@ -12,7 +12,7 @@ if (!Element.prototype.matches) {
  * @param selector
  * @returns {boolean|Element}
  */
-const _getMatchedElement = function (attachedElement, element, selector) {
+const getMatchedElement = function getMatchedElement(attachedElement, element, selector) {
   // node.ELEMENT_NODE;
   const ELEMENT_NODE = 1;
 
@@ -23,5 +23,4 @@ const _getMatchedElement = function (attachedElement, element, selector) {
   return attachedElement.nodeType === ELEMENT_NODE && attachedElement.matches(selector) ? attachedElement : false;
 };
 
-module.exports = _getMatchedElement;
-
+module.exports = getMatchedElement;

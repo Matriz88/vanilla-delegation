@@ -3,8 +3,8 @@
  * @param {Array} text
  * @returns {string}
  */
-const _createKey = function (text) {
-  return text.join('')
+const createKey = function createKey(text) {
+  return text.join('');
 };
 
 /**
@@ -12,11 +12,11 @@ const _createKey = function (text) {
  * @param eventType
  * @returns {boolean}
  */
-const _isValidString = function (eventType) {
+const isValidString = function isValidString(eventType) {
   return typeof eventType === 'string' && eventType !== '';
 };
 
 module.exports = {
-  _createKey,
-  _isValidString
+  createKey,
+  isValidString,
 };
