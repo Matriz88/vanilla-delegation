@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-const sut = require('../src/removeDelegateListener');
+import removeDelegateListener from '../src/removeDelegateListener';
 
 describe('removeDelegateListener test', () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('removeDelegateListener test', () => {
     };
     elMock.removeEventListener = jest.fn(() => true);
 
-    sut.call(elMock, '', '', null);
+    removeDelegateListener.call(elMock, '', '', null);
 
     // assert
     expect('randomkey' in elMock.delegatedListenersList).toBeTruthy();
@@ -41,7 +41,7 @@ describe('removeDelegateListener test', () => {
     };
     elMock.removeEventListener = jest.fn(() => true);
 
-    sut.call(elMock, 'click', 'span', handlerMock, false);
+    removeDelegateListener.call(elMock, 'click', 'span', handlerMock, false);
 
     // assert
     expect('handlerMockspanfalse' in elMock.delegatedListenersList).toBeFalsy();

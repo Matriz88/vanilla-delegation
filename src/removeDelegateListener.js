@@ -1,4 +1,4 @@
-const { isValidString, createKey } = require('./utils/utils');
+import { isValidString, createKey } from './utils/utils';
 
 /**
  *
@@ -7,7 +7,7 @@ const { isValidString, createKey } = require('./utils/utils');
  * @param {function} handler
  * @param {boolean} useCapture
  */
-const removeDelegateListener = function removeDelegateListener(eventType, selector, handler, useCapture = false) {
+export default function removeDelegateListener(eventType, selector, handler, useCapture = false) {
   if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
     console.warn('Cannot remove event. Wrong arguments types or handler is anonymous. Cannot unbind anonymous functions.');
     return;
@@ -23,6 +23,4 @@ const removeDelegateListener = function removeDelegateListener(eventType, select
     this.removeEventListener(this.delegatedListenersList[key].eventType, this.delegatedListenersList[key].internalHandler, false);
     delete this.delegatedListenersList[key];
   }
-};
-
-module.exports = removeDelegateListener;
+}

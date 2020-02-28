@@ -34,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "eslint": "^6.8.0",
@@ -51,6 +52,11 @@
     "ie >= 11"
   ],
   "jest": {
+    "transform": {
+      "\\.js$": [
+        "babel-jest"
+      ]
+    },
     "clearMocks": true,
     "collectCoverage": true,
     "coverageDirectory": "./extras/coverage_reports",
@@ -62,7 +68,8 @@
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/node_modules/**",
-      "!webpack*"
+      "!webpack*",
+      "!babel.*"
     ],
     "coverageThreshold": {
       "global": {

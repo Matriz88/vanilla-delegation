@@ -1,4 +1,4 @@
-const sut = require('../src/addDelegateListener');
+import addDelegateListener from '../src/addDelegateListener';
 
 describe('addDelegateListener test', () => {
   beforeEach(() => {
@@ -23,7 +23,8 @@ describe('addDelegateListener test', () => {
     };
     elMock.addEventListener = jest.fn(() => true);
 
-    sut.call(elMock, '', '', handlerMock, false);
+    // sut
+    addDelegateListener(elMock, '', '', handlerMock, false);
     expect(elMock.delegatedListenersList).toBeUndefined();
     expect(elMock.addEventListener.mock.calls.length).toBe(0);
   });
@@ -35,7 +36,8 @@ describe('addDelegateListener test', () => {
     };
     elMock.addEventListener = jest.fn(() => true);
 
-    sut.call(elMock, 'click', 'a', handlerMock, false);
+    // sut
+    addDelegateListener.call(elMock, 'click', 'a', handlerMock, false);
     expect('handlerMockafalse' in elMock.delegatedListenersList).toBeTruthy();
     expect(elMock.addEventListener.mock.calls.length).toBe(1);
   });
@@ -47,9 +49,10 @@ describe('addDelegateListener test', () => {
     };
     elMock.addEventListener = jest.fn(() => true);
 
+    // sut
     // bind it twice
-    sut.call(elMock, 'click', 'a', handlerMock, false);
-    sut.call(elMock, 'click', 'a', handlerMock, false);
+    addDelegateListener.call(elMock, 'click', 'a', handlerMock, false);
+    addDelegateListener.call(elMock, 'click', 'a', handlerMock, false);
     expect('handlerMockafalse' in elMock.delegatedListenersList).toBeTruthy();
     expect(elMock.addEventListener.mock.calls.length).toBe(1);
   });
@@ -61,7 +64,8 @@ describe('addDelegateListener test', () => {
     };
     elMock.addEventListener = jest.fn(() => true);
 
-    sut.call(elMock, 'click', 'a', handlerMock, false);
+    // sut
+    addDelegateListener(elMock, 'click', 'a', handlerMock, false);
     expect(elMock.delegatedListenersList).toBeUndefined();
     expect(elMock.addEventListener.mock.calls.length).toBe(0);
   });
@@ -73,7 +77,8 @@ describe('addDelegateListener test', () => {
     };
     elMock.forEach((el) => { el.addEventListener = jest.fn(() => true); });
 
-    sut.call(elMock, 'click', 'a', handlerMock, false);
+    // sut
+    addDelegateListener.call(elMock, 'click', 'a', handlerMock, false);
     elMock.forEach((el) => expect('handlerMockafalse' in el.delegatedListenersList).toBeTruthy());
     elMock.forEach((el) => expect(el.addEventListener.mock.calls.length).toBe(1));
   });
@@ -85,7 +90,8 @@ describe('addDelegateListener test', () => {
     };
     [...elMock].forEach((el) => { el.addEventListener = jest.fn(() => true); });
 
-    sut.call(elMock, 'click', 'a', handlerMock, false);
+    // sut
+    addDelegateListener.call(elMock, 'click', 'a', handlerMock, false);
     [...elMock].forEach((el) => expect('handlerMockafalse' in el.delegatedListenersList).toBeTruthy());
     [...elMock].forEach((el) => expect(el.addEventListener.mock.calls.length).toBe(1));
   });

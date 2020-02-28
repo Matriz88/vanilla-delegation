@@ -1,5 +1,5 @@
-const { isValidString, createKey } = require('./utils/utils');
-const createInternalHandler = require('./utils/_createInternalHandler');
+import { createKey, isValidString } from './utils/utils';
+import createInternalHandler from './utils/_createInternalHandler';
 
 /**
  * _addDelegateListenerInternal
@@ -43,7 +43,7 @@ const addDelegateListenerInternal = function _addDelegateListenerInternal(eventT
  * @param {function} handler
  * @param {boolean} useCapture
  */
-const addDelegateListener = function addDelegateListener(
+export default function addDelegateListener(
   eventType,
   selector,
   handler,
@@ -68,6 +68,4 @@ const addDelegateListener = function addDelegateListener(
   }
 
   console.warn('Cannot bind event on non-Element objects');
-};
-
-module.exports = addDelegateListener;
+}

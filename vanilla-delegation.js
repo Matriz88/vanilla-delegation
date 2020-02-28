@@ -1,5 +1,5 @@
-const addDelegateListener = require('./src/addDelegateListener');
-const removeDelegateListener = require('./src/removeDelegateListener');
+import addDelegateListener from './src/addDelegateListener';
+import removeDelegateListener from './src/removeDelegateListener';
 
 (function exportVanillaDelegation() {
   window.Element.prototype.addDelegateListener = addDelegateListener;

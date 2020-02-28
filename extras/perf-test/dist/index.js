@@ -81,42 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./extras/perf-test/src/index.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
+/******/ ({
 
-/**
- * in case string alteration needed in the future
- * @param {Array} text
- * @returns {string}
- */
-var createKey = function createKey(text) {
-  return text.join('');
-};
-/**
- * check valid string
- * @param eventType
- * @returns {boolean}
- */
-
-
-var isValidString = function isValidString(eventType) {
-  return typeof eventType === 'string' && eventType !== '';
-};
-
-module.exports = {
-  createKey: createKey,
-  isValidString: isValidString
-};
-
-/***/ }),
-/* 1 */
+/***/ "./extras/perf-test/src/index.js":
+/*!***************************************!*\
+  !*** ./extras/perf-test/src/index.js ***!
+  \***************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(2); // const delegate = require('delegate'); //npm install delegate -D
+__webpack_require__(/*! ../../../vanilla-delegation */ "./vanilla-delegation.js"); // const delegate = require('delegate'); //npm install delegate -D
 
 
 (function () {
@@ -170,29 +147,21 @@ __webpack_require__(2); // const delegate = require('delegate'); //npm install d
 })();
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
 
-var addDelegateListener = __webpack_require__(3);
+/***/ "./src/addDelegateListener.js":
+/*!************************************!*\
+  !*** ./src/addDelegateListener.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var removeDelegateListener = __webpack_require__(6);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addDelegateListener; });
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/utils */ "./src/utils/utils.js");
+/* harmony import */ var _utils_createInternalHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/_createInternalHandler */ "./src/utils/_createInternalHandler.js");
 
-(function exportVanillaDelegation() {
-  window.Element.prototype.addDelegateListener = addDelegateListener;
-  window.Element.prototype.removeDelegateListener = removeDelegateListener;
-  window.NodeList.prototype.addDelegateListener = addDelegateListener;
-  window.HTMLCollection.prototype.addDelegateListener = addDelegateListener;
-})();
 
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _require = __webpack_require__(0),
-    isValidString = _require.isValidString,
-    createKey = _require.createKey;
-
-var createInternalHandler = __webpack_require__(4);
 /**
  * _addDelegateListenerInternal
  * @param {string} eventType
@@ -201,16 +170,15 @@ var createInternalHandler = __webpack_require__(4);
  * @param {boolean} useCapture
  */
 
-
 var addDelegateListenerInternal = function _addDelegateListenerInternal(eventType, selector, handler, useCapture) {
-  var handlerHash = createKey([handler.name, selector, useCapture]);
+  var handlerHash = Object(_utils_utils__WEBPACK_IMPORTED_MODULE_0__["createKey"])([handler.name, selector, useCapture]);
 
   if (this.delegatedListenersList && handlerHash in this.delegatedListenersList) {
     console.warn('Cannot bind event. A listener with same arguments is already registered. ' + 'If you need to register multiple listeners with same arguments consider to pass an anonymous function as handler, ' + 'but be aware that you won\'t be able to remove the listener in the future.');
     return;
   }
 
-  var internalHandler = createInternalHandler(this, selector, handler);
+  var internalHandler = Object(_utils_createInternalHandler__WEBPACK_IMPORTED_MODULE_1__["default"])(this, selector, handler);
   this.addEventListener(eventType, internalHandler, useCapture);
   if (!this.delegatedListenersList) this.delegatedListenersList = [];
   if (handler.name === '') return;
@@ -228,10 +196,10 @@ var addDelegateListenerInternal = function _addDelegateListenerInternal(eventTyp
  */
 
 
-var addDelegateListener = function addDelegateListener(eventType, selector, handler) {
+function addDelegateListener(eventType, selector, handler) {
   var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
-  if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function') {
+  if (!Object(_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isValidString"])(eventType) || !Object(_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isValidString"])(selector) || typeof handler !== 'function') {
     console.warn('Cannot bind event. Wrong arguments types');
     return;
   }
@@ -252,15 +220,60 @@ var addDelegateListener = function addDelegateListener(eventType, selector, hand
   }
 
   console.warn('Cannot bind event on non-Element objects');
-};
-
-module.exports = addDelegateListener;
+}
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
 
-var getMatchedElement = __webpack_require__(5);
+/***/ "./src/removeDelegateListener.js":
+/*!***************************************!*\
+  !*** ./src/removeDelegateListener.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return removeDelegateListener; });
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/utils */ "./src/utils/utils.js");
+
+/**
+ *
+ * @param {string} eventType
+ * @param {string} selector
+ * @param {function} handler
+ * @param {boolean} useCapture
+ */
+
+function removeDelegateListener(eventType, selector, handler) {
+  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  if (!Object(_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isValidString"])(eventType) || !Object(_utils_utils__WEBPACK_IMPORTED_MODULE_0__["isValidString"])(selector) || typeof handler !== 'function' || handler.name === '') {
+    console.warn('Cannot remove event. Wrong arguments types or handler is anonymous. Cannot unbind anonymous functions.');
+    return;
+  }
+
+  var key = Object(_utils_utils__WEBPACK_IMPORTED_MODULE_0__["createKey"])([handler.name, selector, useCapture]);
+
+  if (this.delegatedListenersList && key in this.delegatedListenersList) {
+    this.removeEventListener(this.delegatedListenersList[key].eventType, this.delegatedListenersList[key].internalHandler, false);
+    delete this.delegatedListenersList[key];
+  }
+}
+
+/***/ }),
+
+/***/ "./src/utils/_createInternalHandler.js":
+/*!*********************************************!*\
+  !*** ./src/utils/_createInternalHandler.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createInternalHandler; });
+/* harmony import */ var _getMatchedElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_getMatchedElement */ "./src/utils/_getMatchedElement.js");
+
 /**
  * create internal handler
  * @param attachedElement
@@ -268,10 +281,9 @@ var getMatchedElement = __webpack_require__(5);
  * @param handler
  */
 
-
-var createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
+function createInternalHandler(attachedElement, selector, handler) {
   return function createInternalSubHandler(selectorInput, handlerInput, eventInput) {
-    matchedElement = getMatchedElement(this, eventInput.target, selectorInput);
+    var matchedElement = Object(_getMatchedElement__WEBPACK_IMPORTED_MODULE_0__["default"])(this, eventInput.target, selectorInput);
 
     if (matchedElement) {
       // save Element to which the event was originally attached (jQuery-like)
@@ -279,14 +291,19 @@ var createInternalHandler = function createInternalHandler(attachedElement, sele
       handlerInput.call(matchedElement, eventInput);
     }
   }.bind(attachedElement, selector, handler);
-};
-
-module.exports = createInternalHandler;
+}
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
 
+/***/ "./src/utils/_getMatchedElement.js":
+/*!*****************************************!*\
+  !*** ./src/utils/_getMatchedElement.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /**
  * apply polyfill
  */
@@ -302,7 +319,7 @@ if (!Element.prototype.matches) {
  */
 
 
-var getMatchedElement = function getMatchedElement(attachedElement, element, selector) {
+function getMatchedElement(attachedElement, element, selector) {
   // node.ELEMENT_NODE;
   var ELEMENT_NODE = 1;
 
@@ -311,43 +328,65 @@ var getMatchedElement = function getMatchedElement(attachedElement, element, sel
   }
 
   return attachedElement.nodeType === ELEMENT_NODE && attachedElement.matches(selector) ? attachedElement : false;
-};
+}
 
-module.exports = getMatchedElement;
+/* harmony default export */ __webpack_exports__["default"] = (getMatchedElement);
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
 
-var _require = __webpack_require__(0),
-    isValidString = _require.isValidString,
-    createKey = _require.createKey;
+/***/ "./src/utils/utils.js":
+/*!****************************!*\
+  !*** ./src/utils/utils.js ***!
+  \****************************/
+/*! exports provided: createKey, isValidString */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createKey", function() { return createKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isValidString", function() { return isValidString; });
 /**
- *
- * @param {string} eventType
- * @param {string} selector
- * @param {function} handler
- * @param {boolean} useCapture
+ * in case string alteration needed in the future
+ * @param {Array} text
+ * @returns {string}
+ */
+function createKey(text) {
+  return text.join('');
+}
+/**
+ * check valid string
+ * @param eventType
+ * @returns {boolean}
  */
 
+function isValidString(eventType) {
+  return typeof eventType === 'string' && eventType !== '';
+}
 
-var removeDelegateListener = function removeDelegateListener(eventType, selector, handler) {
-  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+/***/ }),
 
-  if (!isValidString(eventType) || !isValidString(selector) || typeof handler !== 'function' || handler.name === '') {
-    console.warn('Cannot remove event. Wrong arguments types or handler is anonymous. Cannot unbind anonymous functions.');
-    return;
-  }
+/***/ "./vanilla-delegation.js":
+/*!*******************************!*\
+  !*** ./vanilla-delegation.js ***!
+  \*******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-  var key = createKey([handler.name, selector, useCapture]);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _src_addDelegateListener__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/addDelegateListener */ "./src/addDelegateListener.js");
+/* harmony import */ var _src_removeDelegateListener__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/removeDelegateListener */ "./src/removeDelegateListener.js");
 
-  if (this.delegatedListenersList && key in this.delegatedListenersList) {
-    this.removeEventListener(this.delegatedListenersList[key].eventType, this.delegatedListenersList[key].internalHandler, false);
-    delete this.delegatedListenersList[key];
-  }
-};
 
-module.exports = removeDelegateListener;
+
+(function exportVanillaDelegation() {
+  window.Element.prototype.addDelegateListener = _src_addDelegateListener__WEBPACK_IMPORTED_MODULE_0__["default"];
+  window.Element.prototype.removeDelegateListener = _src_removeDelegateListener__WEBPACK_IMPORTED_MODULE_1__["default"];
+  window.NodeList.prototype.addDelegateListener = _src_addDelegateListener__WEBPACK_IMPORTED_MODULE_0__["default"];
+  window.HTMLCollection.prototype.addDelegateListener = _src_addDelegateListener__WEBPACK_IMPORTED_MODULE_0__["default"];
+})();
 
 /***/ })
-/******/ ]);
+
+/******/ });
+//# sourceMappingURL=index.js.map

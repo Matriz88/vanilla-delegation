@@ -1,4 +1,4 @@
-const getMatchedElement = require('./_getMatchedElement');
+import getMatchedElement from './_getMatchedElement';
 
 /**
  * create internal handler
@@ -6,9 +6,9 @@ const getMatchedElement = require('./_getMatchedElement');
  * @param selector
  * @param handler
  */
-const createInternalHandler = function createInternalHandler(attachedElement, selector, handler) {
+export default function createInternalHandler(attachedElement, selector, handler) {
   return function createInternalSubHandler(selectorInput, handlerInput, eventInput) {
-    matchedElement = getMatchedElement(this, eventInput.target, selectorInput);
+    const matchedElement = getMatchedElement(this, eventInput.target, selectorInput);
 
     if (matchedElement) {
       // save Element to which the event was originally attached (jQuery-like)
@@ -16,6 +16,4 @@ const createInternalHandler = function createInternalHandler(attachedElement, se
       handlerInput.call(matchedElement, eventInput);
     }
   }.bind(attachedElement, selector, handler);
-};
-
-module.exports = createInternalHandler;
+}

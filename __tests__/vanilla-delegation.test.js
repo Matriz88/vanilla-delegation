@@ -1,6 +1,7 @@
-const addDelegateListener = require('../src/addDelegateListener');
-const removeDelegateListener = require('../src/removeDelegateListener');
-require('../vanilla-delegation');
+import addDelegateListener from '../src/addDelegateListener';
+import removeDelegateListener from '../src/removeDelegateListener';
+
+import '../vanilla-delegation';
 
 describe('vanilla-delegation test', () => {
   test('sets correct prototypes', () => {

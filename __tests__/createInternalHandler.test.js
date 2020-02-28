@@ -1,6 +1,5 @@
-/* eslint-disable no-magic-numbers,quotes */
-const getMatchedElement = require('../src/utils/_getMatchedElement');
-const sut = require('../src/utils/_createInternalHandler');
+import getMatchedElement from '../src/utils/_getMatchedElement';
+import createInternalHandler from '../src/utils/_createInternalHandler';
 
 // mock
 jest.mock('../src/utils/_getMatchedElement');
@@ -27,7 +26,8 @@ describe('_createInternalHandler test', () => {
 
     getMatchedElement.mockReturnValue(elementMatchingSelector);
     const myHandler = jest.fn(() => true);
-    const internalHandler = sut(elementWithAttachedListener, selector, myHandler);
+    // sut
+    const internalHandler = createInternalHandler(elementWithAttachedListener, selector, myHandler);
     internalHandler(eventMock);
 
     // asserts
@@ -36,7 +36,7 @@ describe('_createInternalHandler test', () => {
     expect(eventMock.delegateTarget).toBe(elementWithAttachedListener);
   });
 
-  test(`no match, doesn't call handler`, () => {
+  test('no match, doesn\'t call handler', () => {
     const selector = 'a';
     const elementWithAttachedListener = document.querySelector('div');
     const elementTriggered = document.querySelector('span');
@@ -46,7 +46,8 @@ describe('_createInternalHandler test', () => {
 
     getMatchedElement.mockReturnValue(false);
     const myHandler = jest.fn(() => true);
-    const internalHandler = sut(elementWithAttachedListener, selector, myHandler);
+    // sut
+    const internalHandler = createInternalHandler(elementWithAttachedListener, selector, myHandler);
     internalHandler(eventMock);
 
     // asserts

@@ -1,13 +1,14 @@
-require('../../../vanilla-delegation');
+/* eslint-disable */
+import '../../../vanilla-delegation';
 // const delegate = require('delegate'); //npm install delegate -D
 
 (function () {
   const prepareDom = function () {
     let counter = 0;
-    let max = 1000;
+    const max = 1000;
     const recursAppend = function (el) {
       if (counter === max) return false;
-      let newEl = document.createElement(counter === max - 1
+      const newEl = document.createElement(counter === max - 1
         ? 'span'
         : 'p');
       el.appendChild(newEl);
@@ -15,9 +16,8 @@ require('../../../vanilla-delegation');
       recursAppend(newEl);
     };
 
-    let section = document.querySelector('section');
+    const section = document.querySelector('section');
     recursAppend(section);
-
   };
 
   prepareDom();
@@ -57,5 +57,4 @@ require('../../../vanilla-delegation');
     t0 = performance.now();
     spanElement.click();
   }
-
-})();
+}());
